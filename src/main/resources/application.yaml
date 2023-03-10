@@ -1,0 +1,19 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /twitter-clone
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/practice_app_one
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: root
+    hikari:
+      connectionTimeout: 20000
+      maximum-pool-size: 5
+    jpa:
+      database: POSTGRESQL
+      hibernate:
+        ddl-auto: update
+      show-sql: true
