@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 public final class ValidationHandler extends ResponseEntityExceptionHandler {
     @Override
     @NonNull
-    //ResponseEntity<Object>
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception,
                                                                   @NonNull HttpHeaders httpHeaders, @NonNull HttpStatus httpStatus, @NonNull WebRequest webRequest) {
 
