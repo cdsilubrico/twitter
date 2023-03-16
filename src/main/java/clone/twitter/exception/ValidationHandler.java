@@ -1,32 +1,47 @@
 package clone.twitter.exception;
 
-import clone.twitter.model.exception.Error;
+import clone.twitter.model.exception.CommonError;
 import clone.twitter.model.exception.DataError;
-import lombok.NonNull;
-import org.springframework.http.HttpHeaders;
+import clone.twitter.model.exception.RequestBodyError;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Import;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-@ControllerAdvice
-public final class ValidationHandler extends ResponseEntityExceptionHandler {
-    @Override
-    @NonNull
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception,
-                                                                  @NonNull HttpHeaders httpHeaders, @NonNull HttpStatus httpStatus, @NonNull WebRequest webRequest) {
+import static clone.twitter.constant.ExceptionConstants.RequestBodyExceptionConstants.*;
 
+@Import({DatabaseHandler.class, GenericHandler.class})
+@Order(value = 0)
+@RestControllerAdvice
+public final class ValidationHandler{
+
+    private static final Logger logger = LoggerFactory.getLogger(ValidationHandler.class);
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Object> handleValidationErrors(final MethodArgumentNotValidException exception) {
+
+        logger.error(INVALID_INPUT_S);
 
         final List<Object> dataErrors = exception.getFieldErrors()
                 .stream()
                 .map(dataError -> new DataError(dataError.getDefaultMessage(), dataError.getCode()))
                 .collect(Collectors.toList());
 
-        return new ResponseEntity<>(new Error(httpStatus.value(), new Date(), dataErrors), httpStatus);
+        return new ResponseEntity<>
+                (new RequestBodyError
+                        (new CommonError
+                                (INVALID_INPUT_S,
+                                        INVALID_INPUT_S_CODE,
+                                        HttpStatus.BAD_REQUEST.value(),
+                                        new Date()),
+                                dataErrors), HttpStatus.BAD_REQUEST);
     }
 }

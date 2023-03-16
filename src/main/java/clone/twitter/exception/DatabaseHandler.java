@@ -2,6 +2,7 @@ package clone.twitter.exception;
 
 import clone.twitter.model.exception.CommonError;
 import clone.twitter.model.exception.DatabaseException;
+import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.Date;
 import static clone.twitter.constant.ExceptionConstants.DatabaseExceptionConstants.*;
 
 @ControllerAdvice
+@Order(value = 2)
 public final class DatabaseHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Object> handleDatabaseException() {
