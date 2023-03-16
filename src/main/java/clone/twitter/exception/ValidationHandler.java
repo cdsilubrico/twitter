@@ -6,6 +6,7 @@ import clone.twitter.model.exception.RequestBodyError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 import static clone.twitter.constant.ExceptionConstants.RequestBodyExceptionConstants.*;
 
 @Import({DatabaseHandler.class, GenericHandler.class})
-@Order(value = 0)
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
 public final class ValidationHandler{
 

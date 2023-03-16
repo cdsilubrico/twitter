@@ -2,6 +2,8 @@ package clone.twitter.exception;
 
 import clone.twitter.model.exception.CommonError;
 import clone.twitter.model.exception.DatabaseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,9 @@ import static clone.twitter.constant.ExceptionConstants.DatabaseExceptionConstan
 @ControllerAdvice
 @Order(value = 2)
 public final class DatabaseHandler extends ResponseEntityExceptionHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(DatabaseHandler.class);
+
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Object> handleDatabaseException() {
 
