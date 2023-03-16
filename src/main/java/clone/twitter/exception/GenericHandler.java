@@ -17,7 +17,7 @@ import static clone.twitter.constant.ExceptionConstants.GenericExceptionConstant
 
 @ControllerAdvice
 @Order(Ordered.LOWEST_PRECEDENCE)
-public class GenericHandler extends ResponseEntityExceptionHandler {
+public final class GenericHandler extends ResponseEntityExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GenericHandler.class);
 
