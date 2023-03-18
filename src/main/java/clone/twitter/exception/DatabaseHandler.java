@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Date;
+import java.util.NoSuchElementException;
 
 import static clone.twitter.constant.ExceptionConstants.DatabaseExceptionConstants.*;
 
@@ -23,13 +24,22 @@ public final class DatabaseHandler extends ResponseEntityExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(DatabaseHandler.class);
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<Object> handleDatabaseException() {
+    public ResponseEntity<Object> handleDuplicateDatabaseEntity() {
 
         logger.error(DUPLICATE_USERNAME_OR_EMAIL);
 
         return new ResponseEntity<>(new DatabaseException
                 (new Error(DUPLICATE_USERNAME_OR_EMAIL, DUPLICATE_USERNAME_OR_EMAIL_CODE,
-                        HttpStatus.INTERNAL_SERVER_ERROR.value(), new Date())), HttpStatus.INTERNAL_SERVER_ERROR);
+                        HttpStatus.INTERNAL_SERVER_ERROR.value(), new Date())),
+                HttpStatus.INTERNAL_SERVER_ERROR);
 
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<Object> handleDatabaseElementNotFound() {
+        return new ResponseEntity<>
+                (new DatabaseException
+                        (new Error(USERNAME_OR_HANDLE_NOT_FOUND, USERNAME_OR_HANDLE_NOT_FOUND_CODE, HttpStatus.BAD_REQUEST.value(), new Date())),
+                        HttpStatus.BAD_REQUEST);
     }
 }

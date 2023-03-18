@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AuthServiceImpl implements AuthService{
 
@@ -23,6 +25,12 @@ public class AuthServiceImpl implements AuthService{
 
         authRepository.save(new Account(accountDTO));
 
+    }
+
+    @Override
+    public AccountDTO getByEmail(String email) {
+        return Optional.ofNullable(authRepository.findByEmail(email))
+                .map(AccountDTO::new).orElseThrow();
     }
 
 }

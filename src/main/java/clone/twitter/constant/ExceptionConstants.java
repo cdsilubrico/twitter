@@ -6,8 +6,10 @@ public class ExceptionConstants {
         public static final String UNKNOWN_ERROR_CODE = "EC000";
     }
     public static class DatabaseExceptionConstants {
-        public static final String DUPLICATE_USERNAME_OR_EMAIL = "Username or email already exist.";
+        public static final String DUPLICATE_USERNAME_OR_EMAIL = "Email or handle already exist.";
         public static final String DUPLICATE_USERNAME_OR_EMAIL_CODE = "EC001";
+        public static final String USERNAME_OR_HANDLE_NOT_FOUND = "Email or handle does not exist.";
+        public static final String USERNAME_OR_HANDLE_NOT_FOUND_CODE = "EC003";
     }
 
     public static class RequestBodyExceptionConstants {

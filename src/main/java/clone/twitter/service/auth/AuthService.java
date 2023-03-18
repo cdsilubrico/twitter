@@ -3,9 +3,14 @@ package clone.twitter.service.auth;
 //import clone.twitter.dto.auth.LoginDTO;
 
 import clone.twitter.dto.authenticate.*;
+import clone.twitter.model.auth.Account;
+
+import java.util.Optional;
 
 public interface AuthService {
     void signup(final AccountDTO accountDTO);
+
+    AccountDTO getByEmail(String email);
 
 //    LoginDTO login(LoginDTO loginDTO) throws Exception;
 //

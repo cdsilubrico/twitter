@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@Builder(toBuilder = true)
+@NoArgsConstructor
 @ToString(exclude = {"password", "dateCreated", "accountId"})
 public class AccountDTO {
     @NotEmpty(message = "First Name field can't be empty.")
@@ -28,12 +28,12 @@ public class AccountDTO {
     private LocalDate dateCreated;
     private long accountId;
 
-//    public AccountDTO(final Account account) {
-//        this.firstName = account.getFirstName();
-//        this.lastName = account.getLastName();
-//        this.email = account.getEmail();
-//        this.dateCreated = account.getDateCreated();
-//        this.handle = account.getHandle();
-//        this.accountId = account.getAccountId();
-//    }
+    public AccountDTO(final Account account) {
+        this.firstName = account.getFirstName();
+        this.lastName = account.getLastName();
+        this.email = account.getEmail();
+        this.dateCreated = account.getDateCreated();
+        this.handle = account.getHandle();
+        this.accountId = account.getAccountId();
+    }
 }
