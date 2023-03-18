@@ -1,6 +1,6 @@
 package clone.twitter.exception;
 
-import clone.twitter.model.exception.CommonError;
+import clone.twitter.model.exception.Error;
 import clone.twitter.model.exception.DataError;
 import clone.twitter.model.exception.RequestBodyError;
 import org.slf4j.Logger;
@@ -38,7 +38,7 @@ public final class ValidationHandler{
 
         return new ResponseEntity<>
                 (new RequestBodyError
-                        (new CommonError
+                        (new Error
                                 (INVALID_INPUT_S,
                                         INVALID_INPUT_S_CODE,
                                         HttpStatus.BAD_REQUEST.value(),

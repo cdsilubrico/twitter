@@ -1,6 +1,6 @@
 package clone.twitter.exception;
 
-import clone.twitter.model.exception.CommonError;
+import clone.twitter.model.exception.Error;
 import clone.twitter.model.exception.DatabaseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ public final class DatabaseHandler extends ResponseEntityExceptionHandler {
         logger.error(DUPLICATE_USERNAME_OR_EMAIL);
 
         return new ResponseEntity<>(new DatabaseException
-                (new CommonError(DUPLICATE_USERNAME_OR_EMAIL, DUPLICATE_USERNAME_OR_EMAIL_CODE,
+                (new Error(DUPLICATE_USERNAME_OR_EMAIL, DUPLICATE_USERNAME_OR_EMAIL_CODE,
                         HttpStatus.INTERNAL_SERVER_ERROR.value(), new Date())), HttpStatus.INTERNAL_SERVER_ERROR);
 
     }

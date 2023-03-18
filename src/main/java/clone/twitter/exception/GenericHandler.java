@@ -1,6 +1,6 @@
 package clone.twitter.exception;
 
-import clone.twitter.model.exception.CommonError;
+import clone.twitter.model.exception.Error;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
@@ -27,7 +27,7 @@ public final class GenericHandler extends ResponseEntityExceptionHandler {
         logger.error(UNKNOWN_ERROR);
 
         return new ResponseEntity<>
-                (new CommonError(exception.getMessage(), UNKNOWN_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.value(), new Date()),
+                (new Error(exception.getMessage(), UNKNOWN_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.value(), new Date()),
                         HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
