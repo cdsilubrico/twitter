@@ -29,6 +29,9 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public AccountDTO getByEmail(String email) {
+
+        logger.info(getClass().getName() + " - " +email);
+
         return Optional.ofNullable(authRepository.findByEmail(email))
                 .map(AccountDTO::new).orElseThrow();
     }
