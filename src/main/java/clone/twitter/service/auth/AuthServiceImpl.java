@@ -30,9 +30,18 @@ public class AuthServiceImpl implements AuthService{
     @Override
     public AccountDTO getByEmail(String email) {
 
-        logger.info(getClass().getName() + " - " +email);
+        logger.info(getClass().getName() + " - " + email);
 
         return Optional.ofNullable(authRepository.findByEmail(email))
+                .map(AccountDTO::new).orElseThrow();
+    }
+
+    @Override
+    public AccountDTO getByHandle(String handle) {
+
+        logger.info(getClass().getName() + " - " + handle);
+
+        return Optional.ofNullable(authRepository.findByHandle(handle))
                 .map(AccountDTO::new).orElseThrow();
     }
 

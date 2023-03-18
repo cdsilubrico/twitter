@@ -11,6 +11,7 @@ public interface AuthService {
     void signup(final AccountDTO accountDTO);
 
     AccountDTO getByEmail(String email);
+    AccountDTO getByHandle(String handle);
 
 //    LoginDTO login(LoginDTO loginDTO) throws Exception;
 //

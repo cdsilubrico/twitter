@@ -25,9 +25,13 @@ public class AuthController {
     }
 
     @GetMapping(value = "/email/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<AccountDTO> getByEmail(@PathVariable("email") final String email) {
         return new ResponseEntity<>(authService.getByEmail(SanitizeUtil.sanitizeString(email)), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/handle/{handle}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AccountDTO> getByHandle(@PathVariable("handle") final String handle) {
+        return new ResponseEntity<>(authService.getByHandle(SanitizeUtil.sanitizeString(handle)), HttpStatus.OK);
     }
 
 }
