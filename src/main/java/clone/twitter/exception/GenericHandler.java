@@ -13,6 +13,7 @@ import java.util.Date;
 
 import static clone.twitter.constant.ExceptionConstants.GenericExceptionConstants.UNKNOWN_ERROR;
 
+@ControllerAdvice
 public final class GenericHandler extends ResponseEntityExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GenericHandler.class);
