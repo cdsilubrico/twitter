@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class AuthServiceImpl implements AuthService{
+public class AuthServiceImpl implements AuthService {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
 
@@ -20,9 +20,9 @@ public class AuthServiceImpl implements AuthService{
     private AuthRepository authRepository;
 
     @Override
-    public void signup(final AccountDTO accountDTO){
+    public void signup(final AccountDTO accountDTO) {
 
-        logger.info(getClass().getName() + " - " +accountDTO.toString());
+        logger.info(getClass().getName() + " - " + accountDTO.toString());
 
         authRepository.save(new Account(accountDTO));
 
@@ -54,10 +54,10 @@ public class AuthServiceImpl implements AuthService{
 
         AccountDTO accountDTO;
 
-        if(loginDTO.getEmailOrHandle().startsWith("@")) {
+        if (loginDTO.getEmailOrHandle().startsWith("@")) {
             accountDTO = Optional.ofNullable(authRepository.findByHandleAndPassword(loginDTO.getEmailOrHandle(), loginDTO.getPassword()))
                     .map(AccountDTO::new).orElseThrow();
-        }else {
+        } else {
             accountDTO = Optional.ofNullable(authRepository.findByEmailAndPassword(loginDTO.getEmailOrHandle(), loginDTO.getPassword()))
                     .map(AccountDTO::new).orElseThrow();
         }
