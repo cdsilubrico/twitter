@@ -5,6 +5,7 @@ public class ExceptionConstants {
         public static final String UNKNOWN_ERROR = "An unknown error occurred.";
         public static final String UNKNOWN_ERROR_CODE = "EC000";
     }
+
     public static class DatabaseExceptionConstants {
         public static final String DUPLICATE_USERNAME_OR_EMAIL = "Email or handle already exist.";
         public static final String DUPLICATE_USERNAME_OR_EMAIL_CODE = "EC001";

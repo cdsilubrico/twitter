@@ -5,7 +5,7 @@ import clone.twitter.dto.authenticate.LoginDTO;
 import org.apache.commons.text.StringEscapeUtils;
 
 public class SanitizeUtil {
-    public static AccountDTO sanitizeAccountDto (final AccountDTO accountDTO) {
+    public static AccountDTO sanitizeAccountDto(final AccountDTO accountDTO) {
 
         final AccountDTO sanitizedAccountDto = new AccountDTO();
 
@@ -27,11 +27,11 @@ public class SanitizeUtil {
         return sanitizedLoginDto;
     }
 
-     public static String sanitizeString(final String unsanitizedString) {
+    public static String sanitizeString(final String unsanitizedString) {
         return StringEscapeUtils.escapeJava(unsanitizedString);
     }
 
-    private static String cleanHandle(final String handle){
+    private static String cleanHandle(final String handle) {
         return handle.replaceAll("@", "");
     }
 

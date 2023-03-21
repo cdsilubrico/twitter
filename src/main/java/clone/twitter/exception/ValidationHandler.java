@@ -22,7 +22,7 @@ import static clone.twitter.constant.ExceptionConstants.RequestBodyExceptionCons
 @Import({DatabaseHandler.class, GenericHandler.class})
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
-public final class ValidationHandler{
+public final class ValidationHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(ValidationHandler.class);
 
