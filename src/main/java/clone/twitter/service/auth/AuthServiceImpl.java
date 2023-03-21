@@ -49,10 +49,9 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AccountDTO login(final LoginDTO loginDTO) {
 
-        System.out.println(loginDTO.getEmailOrHandle());
-        System.out.println(loginDTO.getPassword());
+        final AccountDTO accountDTO;
 
-        AccountDTO accountDTO;
+        logger.info(getClass().getName() + " - " + loginDTO.toString());
 
         if (loginDTO.getEmailOrHandle().startsWith("@")) {
             accountDTO = Optional.ofNullable(authRepository.findByHandleAndPassword(loginDTO.getEmailOrHandle(), loginDTO.getPassword()))
