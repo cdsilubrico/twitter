@@ -1,6 +1,7 @@
 package clone.twitter.controller.auth;
 
 import clone.twitter.dto.authenticate.AccountDTO;
+import clone.twitter.dto.authenticate.LoginDTO;
 import clone.twitter.service.auth.AuthService;
 import clone.twitter.util.sanitize.SanitizeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +20,24 @@ public class AuthController {
     AuthService authService;
 
     @PostMapping(value = "/signup", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void signup(@RequestBody @Valid final AccountDTO accountDTO) {
+    public ResponseEntity signup(@RequestBody @Valid final AccountDTO accountDTO) {
         authService.signup(SanitizeUtil.sanitizeAccountDto(accountDTO));
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AccountDTO> login(@RequestBody final LoginDTO loginDTO) {
+        return ResponseEntity.ok(authService.login(SanitizeUtil.sanitizeLoginDto(loginDTO)));
     }
 
     @GetMapping(value = "/email/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AccountDTO> getByEmail(@PathVariable("email") final String email) {
-        return new ResponseEntity<>(authService.getByEmail(SanitizeUtil.sanitizeString(email)), HttpStatus.OK);
+        return ResponseEntity.ok(authService.getByEmail(SanitizeUtil.sanitizeString(email)));
     }
 
     @GetMapping(value = "/handle/{handle}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AccountDTO> getByHandle(@PathVariable("handle") final String handle) {
-        return new ResponseEntity<>(authService.getByHandle(SanitizeUtil.sanitizeString(handle)), HttpStatus.OK);
+        return ResponseEntity.ok(authService.getByHandle(SanitizeUtil.sanitizeString(handle)));
     }
 
 }

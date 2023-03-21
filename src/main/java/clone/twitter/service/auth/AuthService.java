@@ -13,6 +13,8 @@ public interface AuthService {
     AccountDTO getByEmail(String email);
     AccountDTO getByHandle(String handle);
 
+    AccountDTO login(LoginDTO loginDTO);
+
 //    LoginDTO login(LoginDTO loginDTO) throws Exception;
 //
 //    boolean validateEmail(String email);

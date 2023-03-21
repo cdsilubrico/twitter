@@ -1,6 +1,7 @@
 package clone.twitter.service.auth;
 
 import clone.twitter.dto.authenticate.AccountDTO;
+import clone.twitter.dto.authenticate.LoginDTO;
 import clone.twitter.model.auth.Account;
 import clone.twitter.repository.auth.AuthRepository;
 import org.slf4j.Logger;
@@ -43,6 +44,25 @@ public class AuthServiceImpl implements AuthService{
 
         return Optional.ofNullable(authRepository.findByHandle(handle))
                 .map(AccountDTO::new).orElseThrow();
+    }
+
+    @Override
+    public AccountDTO login(final LoginDTO loginDTO) {
+
+        System.out.println(loginDTO.getEmailOrHandle());
+        System.out.println(loginDTO.getPassword());
+
+        AccountDTO accountDTO;
+
+        if(loginDTO.getEmailOrHandle().startsWith("@")) {
+            accountDTO = Optional.ofNullable(authRepository.findByHandleAndPassword(loginDTO.getEmailOrHandle(), loginDTO.getPassword()))
+                    .map(AccountDTO::new).orElseThrow();
+        }else {
+            accountDTO = Optional.ofNullable(authRepository.findByEmailAndPassword(loginDTO.getEmailOrHandle(), loginDTO.getPassword()))
+                    .map(AccountDTO::new).orElseThrow();
+        }
+
+        return accountDTO;
     }
 
 }
