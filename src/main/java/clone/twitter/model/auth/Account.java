@@ -33,7 +33,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id", nullable = false)
-    private long accountId;
+    private Long accountId;
 
     public Account(final AccountDTO accountDTO) {
         this.firstName = accountDTO.getFirstName();
