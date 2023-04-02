@@ -37,6 +37,9 @@ public final class DatabaseHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<Object> handleDatabaseElementNotFound() {
+
+        logger.error(USERNAME_OR_HANDLE_NOT_FOUND);
+
         return new ResponseEntity<>
                 (new DatabaseException
                         (new Error(USERNAME_OR_HANDLE_NOT_FOUND, USERNAME_OR_HANDLE_NOT_FOUND_CODE, HttpStatus.BAD_REQUEST.value(), new Date())),
