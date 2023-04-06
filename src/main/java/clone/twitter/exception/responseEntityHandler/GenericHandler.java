@@ -1,4 +1,4 @@
-package clone.twitter.exception;
+package clone.twitter.exception.responseEntityHandler;
 
 import clone.twitter.model.exception.Error;
 import org.slf4j.Logger;
