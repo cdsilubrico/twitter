@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
@@ -40,6 +41,11 @@ public class AuthController {
     public ResponseEntity<UserAuthDTO> signup(@RequestBody @Valid final UserAuthDTO userAuthDTO) {
         authService.signup(SanitizeUtil.sanitizeUserAuthDto(userAuthDTO));
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserAuthDTO> user(@PathVariable final Long id) {
+        return ResponseEntity.ok(authService.getById(id));
     }
 
 }

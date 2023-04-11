@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static clone.twitter.constant.ExceptionConstants.DatabaseExceptionConstants.ID_NOT_FOUND;
 import static clone.twitter.constant.ExceptionConstants.DatabaseExceptionConstants.USERNAME_OR_HANDLE_NOT_FOUND;
 
 @Service
@@ -68,12 +69,20 @@ public class AuthServiceImpl implements AuthService {
 
         final UserAuth userAuth = new UserAuth(userAuthDTO);
 
-        if (userAuthRepository.findByEmailOrHandle(userAuth.getEmail(), userAuth.getHandle()).isEmpty()) {
-            userAuthRepository.save(userAuth);
-        } else {
-            throw new DatabaseHandler(USERNAME_OR_HANDLE_NOT_FOUND);
-        }
+        userAuthRepository.findByEmailOrHandle(userAuth.getEmail(), userAuth.getHandle())
+                .ifPresentOrElse(
+                        user -> {
+                            throw new DatabaseHandler(USERNAME_OR_HANDLE_NOT_FOUND);
+                        },
+                        () -> userAuthRepository.save(userAuth)
+                );
 
     }
 
+    @Override
+    public UserAuthDTO getById(Long id) {
+        //return new UserAuthDTO(userAuthRepository.findById(id).orElseThrow(() -> new RuntimeException(ID_NOT_FOUND)));
+
+        return new UserAuthDTO();
+    }
 }

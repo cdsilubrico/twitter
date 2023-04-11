@@ -2,7 +2,8 @@ package clone.twitter.service.auth;
 
 import clone.twitter.dto.authenticate.*;
 import clone.twitter.model.auth.UserAuth;
-import clone.twitter.model.auth.UserDetails;
+
+import java.util.Optional;
 
 public interface AuthService {
     //void signup(final AccountDTO accountDTO);
@@ -14,4 +15,6 @@ public interface AuthService {
     AccountDTO login(LoginDTO loginDTO);
 
     void signup(final UserAuthDTO userAuthDTO);
+
+    UserAuthDTO getById(Long id);
 }
