@@ -2,6 +2,7 @@ package clone.twitter.util.sanitize;
 
 import clone.twitter.dto.authenticate.AccountDTO;
 import clone.twitter.dto.authenticate.LoginDTO;
+import clone.twitter.dto.authenticate.UserAuthDTO;
 import org.apache.commons.text.StringEscapeUtils;
 
 public class SanitizeUtil {
@@ -16,6 +17,16 @@ public class SanitizeUtil {
         sanitizedAccountDto.setEmail(sanitizeString(accountDTO.getEmail()));
 
         return sanitizedAccountDto;
+    }
+
+    public static UserAuthDTO sanitizeUserAuthDto(final UserAuthDTO userAuthDTO) {
+        final UserAuthDTO sanitizedUserAuthDTO = new UserAuthDTO();
+
+        sanitizedUserAuthDTO.setHandle(sanitizeString(cleanHandle(userAuthDTO.getHandle())));
+        sanitizedUserAuthDTO.setEmail(sanitizeString(userAuthDTO.getEmail()));
+        sanitizedUserAuthDTO.setPassword(sanitizeString(userAuthDTO.getPassword()));
+
+        return sanitizedUserAuthDTO;
     }
 
     public static LoginDTO sanitizeLoginDto(final LoginDTO loginDTO) {

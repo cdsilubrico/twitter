@@ -2,14 +2,19 @@ package clone.twitter.service.auth;
 
 import clone.twitter.dto.authenticate.AccountDTO;
 import clone.twitter.dto.authenticate.LoginDTO;
-import clone.twitter.model.auth.Account;
+import clone.twitter.dto.authenticate.UserAuthDTO;
+import clone.twitter.exception.defaultHandler.DatabaseHandler;
+import clone.twitter.model.auth.UserAuth;
 import clone.twitter.repository.auth.AuthRepository;
+import clone.twitter.repository.auth.UserAuthRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
+import static clone.twitter.constant.ExceptionConstants.DatabaseExceptionConstants.USERNAME_OR_HANDLE_NOT_FOUND;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -19,14 +24,8 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private AuthRepository authRepository;
 
-    @Override
-    public void signup(final AccountDTO accountDTO) {
-
-        logger.info(getClass().getName() + " - " + accountDTO.toString());
-
-        authRepository.save(new Account(accountDTO));
-
-    }
+    @Autowired
+    private UserAuthRepository userAuthRepository;
 
     @Override
     public AccountDTO getByEmail(String email) {
@@ -62,6 +61,19 @@ public class AuthServiceImpl implements AuthService {
         }
 
         return accountDTO;
+    }
+
+    @Override
+    public void signup(final UserAuthDTO userAuthDTO) {
+
+        final UserAuth userAuth = new UserAuth(userAuthDTO);
+
+        if (userAuthRepository.findByEmailOrHandle(userAuth.getEmail(), userAuth.getHandle()).isEmpty()) {
+            userAuthRepository.save(userAuth);
+        } else {
+            throw new DatabaseHandler(USERNAME_OR_HANDLE_NOT_FOUND);
+        }
+
     }
 
 }
