@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static clone.twitter.constant.ExceptionConstants.DatabaseExceptionConstants.ID_NOT_FOUND;
 import static clone.twitter.constant.ExceptionConstants.DatabaseExceptionConstants.USERNAME_OR_HANDLE_NOT_FOUND;
 
 @Service
@@ -80,7 +79,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public UserAuthDTO getById(Long id) {
+    public UserAuthDTO getById(final Long id) {
         //return new UserAuthDTO(userAuthRepository.findById(id).orElseThrow(() -> new RuntimeException(ID_NOT_FOUND)));
 
         return new UserAuthDTO();
