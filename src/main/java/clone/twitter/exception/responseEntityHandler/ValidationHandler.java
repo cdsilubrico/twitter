@@ -24,12 +24,12 @@ import static clone.twitter.constant.ExceptionConstants.RequestBodyExceptionCons
 @RestControllerAdvice
 public final class ValidationHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(ValidationHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ValidationHandler.class);
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleValidationErrors(final MethodArgumentNotValidException exception) {
 
-        logger.error(INVALID_INPUT_S);
+        LOGGER.error(INVALID_INPUT_S);
 
         final List<Object> dataErrors = exception.getFieldErrors()
                 .stream()

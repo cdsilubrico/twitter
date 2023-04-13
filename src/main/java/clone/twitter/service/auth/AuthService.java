@@ -1,13 +1,10 @@
 package clone.twitter.service.auth;
 
 import clone.twitter.dto.authenticate.*;
-import clone.twitter.model.auth.UserAuth;
+import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
+@Service
 public interface AuthService {
-    //void signup(final AccountDTO accountDTO);
-
     AccountDTO getByEmail(String email);
 
     AccountDTO getByHandle(String handle);

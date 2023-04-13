@@ -19,27 +19,27 @@ import static clone.twitter.constant.ExceptionConstants.DatabaseExceptionConstan
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthServiceImpl.class);
 
     @Autowired
-    private AuthRepository authRepository;
+    private transient AuthRepository authRepository;
 
     @Autowired
-    private UserAuthRepository userAuthRepository;
+    private transient UserAuthRepository userAuthRepository;
 
     @Override
-    public AccountDTO getByEmail(String email) {
+    public AccountDTO getByEmail(final String email) {
 
-        logger.info(getClass().getName() + " - " + email);
+        LOGGER.info(getClass().getName() + " - " + email);
 
         return Optional.ofNullable(authRepository.findByEmail(email))
                 .map(AccountDTO::new).orElseThrow();
     }
 
     @Override
-    public AccountDTO getByHandle(String handle) {
+    public AccountDTO getByHandle(final String handle) {
 
-        logger.info(getClass().getName() + " - " + handle);
+        LOGGER.info(getClass().getName() + " - " + handle);
 
         return Optional.ofNullable(authRepository.findByHandle(handle))
                 .map(AccountDTO::new).orElseThrow();
@@ -50,7 +50,7 @@ public class AuthServiceImpl implements AuthService {
 
         final AccountDTO accountDTO;
 
-        logger.info(getClass().getName() + " - " + loginDTO.toString());
+        LOGGER.info(getClass().getName() + " - " + loginDTO.toString());
 
         if (loginDTO.getEmailOrHandle().startsWith("@")) {
             accountDTO = Optional.ofNullable(authRepository.findByHandleAndPassword(loginDTO.getEmailOrHandle(), loginDTO.getPassword()))

@@ -18,15 +18,15 @@ import java.util.NoSuchElementException;
 import static clone.twitter.constant.ExceptionConstants.DatabaseExceptionConstants.*;
 
 @ControllerAdvice
-@Order(value = 2)
+@Order(2)
 public final class DatabaseHandler extends ResponseEntityExceptionHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(DatabaseHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHandler.class);
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Object> handleDuplicateDatabaseEntity() {
 
-        logger.error(DUPLICATE_USERNAME_OR_EMAIL);
+        LOGGER.error(DUPLICATE_USERNAME_OR_EMAIL);
 
         return new ResponseEntity<>(new DatabaseException
                 (new Error(DUPLICATE_USERNAME_OR_EMAIL, DUPLICATE_USERNAME_OR_EMAIL_CODE,
@@ -38,7 +38,7 @@ public final class DatabaseHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<Object> handleDatabaseElementNotFound() {
 
-        logger.error(USERNAME_OR_HANDLE_NOT_FOUND);
+        LOGGER.error(USERNAME_OR_HANDLE_NOT_FOUND);
 
         return new ResponseEntity<>
                 (new DatabaseException

@@ -12,14 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
-    AuthService authService;
+    transient AuthService authService;
 
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AccountDTO> login(@RequestBody final LoginDTO loginDTO) {

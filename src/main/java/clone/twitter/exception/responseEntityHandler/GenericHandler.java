@@ -16,12 +16,12 @@ import static clone.twitter.constant.ExceptionConstants.GenericExceptionConstant
 @ControllerAdvice
 public final class GenericHandler extends ResponseEntityExceptionHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(GenericHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GenericHandler.class);
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleGenericException(Exception exception) {
+    public ResponseEntity<Object> handleGenericException(final Exception exception) {
 
-        logger.error(UNKNOWN_ERROR);
+        LOGGER.error(UNKNOWN_ERROR);
 
         return new ResponseEntity<>
                 (new Error(exception.getMessage(), UNKNOWN_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.value(), new Date()),
