@@ -4,30 +4,4 @@
          xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
-
-    <description>
-        My custom rules
-    </description>
-
-    <!-- Your rules will come here -->
-    <rule ref="category/java/codestyle.xml">
-        <exclude name="LongVariable"/>
-        <exclude name="ShortVariable"/>
-        <exclude name="AtLeastOneConstructor"/>
-        <exclude name="CommentDefaultAccessModifier"/>
-        <exclude name="PackageCase"/>
-        <exclude name="UnnecessaryAnnotationValueElement"/>
-
-    </rule>
-
-<!--    <rule ref="category/java/performance.xml"/>-->
-
-<!--    <rule ref="category/java/bestpractices.xml"/>-->
-
-    <rule ref="category/java/errorprone.xml">
-        <exclude name="BeanMembersShouldSerialize"/>
-        <exclude name="MissingSerialVersionUID"/>
-    </rule>
-
-
 </ruleset>
