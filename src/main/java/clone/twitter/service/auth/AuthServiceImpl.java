@@ -80,8 +80,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserAuthDTO getById(final Long id) {
-        //return new UserAuthDTO(userAuthRepository.findById(id).orElseThrow(() -> new RuntimeException(ID_NOT_FOUND)));
-
-        return new UserAuthDTO();
+        return new UserAuthDTO(userAuthRepository.findById(id).orElseThrow());
     }
 }
