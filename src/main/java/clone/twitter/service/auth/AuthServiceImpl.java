@@ -22,10 +22,10 @@ public class AuthServiceImpl implements AuthService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthServiceImpl.class);
 
     @Autowired
-    private transient AuthRepository authRepository;
+    AuthRepository authRepository;
 
     @Autowired
-    private transient UserAuthRepository userAuthRepository;
+    UserAuthRepository userAuthRepository;
 
     @Override
     public AccountDTO getByEmail(final String email) {
