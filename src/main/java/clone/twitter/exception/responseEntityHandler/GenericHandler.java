@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.Date;
 
 import static clone.twitter.constant.ExceptionConstants.GenericExceptionConstants.UNKNOWN_ERROR;
+import static clone.twitter.constant.ExceptionConstants.GenericExceptionConstants.UNKNOWN_ERROR_CODE;
 
 @ControllerAdvice
 public final class GenericHandler extends ResponseEntityExceptionHandler {
@@ -24,7 +25,7 @@ public final class GenericHandler extends ResponseEntityExceptionHandler {
         LOGGER.error(UNKNOWN_ERROR);
 
         return new ResponseEntity<>
-                (new Error(exception.getMessage(), UNKNOWN_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.value(), new Date()),
+                (new Error(UNKNOWN_ERROR, UNKNOWN_ERROR_CODE, HttpStatus.INTERNAL_SERVER_ERROR.value(), new Date()),
                         HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

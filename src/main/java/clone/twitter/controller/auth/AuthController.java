@@ -18,7 +18,7 @@ import javax.validation.Valid;
 public class AuthController {
 
     @Autowired
-    transient AuthService authService;
+    AuthService authService;
 
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AccountDTO> login(@RequestBody final LoginDTO loginDTO) {
