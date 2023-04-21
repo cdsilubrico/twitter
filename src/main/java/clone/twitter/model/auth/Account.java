@@ -9,7 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-import static clone.twitter.util.sanitize.DateUtil.getLocalDate;
+import static clone.twitter.util.DateUtil.getLocalDate;
 
 @Getter
 @Setter
