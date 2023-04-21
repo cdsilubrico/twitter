@@ -35,7 +35,12 @@ public class AuthController {
         return ResponseEntity.ok(authService.getByHandle(SanitizeUtil.sanitizeString(handle)));
     }
 
-    @PostMapping(value = "/signup", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserAuthDTO> updateUser(@RequestBody @Valid final UserAuthDTO userAuthDTO) {
+        return ResponseEntity.ok(authService.updateUser(userAuthDTO));
+    }
+
+    @PostMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity<UserAuthDTO> signup(@RequestBody @Valid final UserAuthDTO userAuthDTO) {
         authService.signup(SanitizeUtil.sanitizeUserAuthDto(userAuthDTO));

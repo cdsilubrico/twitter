@@ -82,4 +82,21 @@ public class AuthServiceImpl implements AuthService {
     public UserAuthDTO getById(final Long id) {
         return new UserAuthDTO(userAuthRepository.findById(id).orElseThrow());
     }
+
+    @Override
+    public UserAuthDTO updateUser(UserAuthDTO userAuthDTO) {
+
+        Optional<UserAuth> userAuthOptional = userAuthRepository.findById(userAuthDTO.getAccountId());
+
+        if(userAuthOptional.isPresent()) {
+            UserAuth currentUserAuth = userAuthOptional.get();
+            currentUserAuth.setEmail(userAuthDTO.getEmail());
+            currentUserAuth.setHandle(userAuthDTO.getHandle());
+            currentUserAuth = userAuthRepository.save(currentUserAuth);
+            return new UserAuthDTO(currentUserAuth);
+        } else {
+            throw new DatabaseHandler(USERNAME_OR_HANDLE_NOT_FOUND);
+        }
+    }
+
 }
