@@ -1,4 +1,4 @@
-package clone.twitter.util.sanitize;
+package clone.twitter.util;
 
 import java.time.LocalDate;
 
