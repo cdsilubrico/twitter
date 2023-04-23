@@ -30,7 +30,7 @@ public final class DatabaseHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(new DatabaseException
                 (new Error(DUPLICATE_USERNAME_OR_EMAIL, DUPLICATE_USERNAME_OR_EMAIL_CODE,
-                        HttpStatus.INTERNAL_SERVER_ERROR.value(), new Date())),
+                        new Date())),
                 HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
@@ -42,7 +42,7 @@ public final class DatabaseHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>
                 (new DatabaseException
-                        (new Error(USERNAME_OR_HANDLE_NOT_FOUND, USERNAME_OR_HANDLE_NOT_FOUND_CODE, HttpStatus.BAD_REQUEST.value(), new Date())),
+                        (new Error(USERNAME_OR_HANDLE_NOT_FOUND, USERNAME_OR_HANDLE_NOT_FOUND_CODE, new Date())),
                         HttpStatus.BAD_REQUEST);
     }
 }

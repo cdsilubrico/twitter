@@ -25,7 +25,7 @@ public final class GenericHandler extends ResponseEntityExceptionHandler {
         LOGGER.error(UNKNOWN_ERROR);
 
         return new ResponseEntity<>
-                (new Error(UNKNOWN_ERROR, UNKNOWN_ERROR_CODE, HttpStatus.INTERNAL_SERVER_ERROR.value(), new Date()),
+                (new Error(UNKNOWN_ERROR, UNKNOWN_ERROR_CODE, new Date()),
                         HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

@@ -41,7 +41,6 @@ public final class ValidationHandler {
                         (new Error
                                 (INVALID_INPUT_S,
                                         INVALID_INPUT_S_CODE,
-                                        HttpStatus.BAD_REQUEST.value(),
                                         new Date()),
                                 dataErrors), HttpStatus.BAD_REQUEST);
     }
