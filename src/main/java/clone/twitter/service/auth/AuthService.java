@@ -14,4 +14,6 @@ public interface AuthService {
     UserAuthDTO getById(Long id);
 
     UserAuthDTO updateUser(UserAuthDTO userAuthDTO);
+
+    void deleteUser(Long id);
 }

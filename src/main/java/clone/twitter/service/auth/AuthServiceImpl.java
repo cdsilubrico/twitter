@@ -3,7 +3,8 @@ package clone.twitter.service.auth;
 import clone.twitter.dto.authenticate.AccountDTO;
 import clone.twitter.dto.authenticate.LoginDTO;
 import clone.twitter.dto.authenticate.UserAuthDTO;
-import clone.twitter.exception.defaultHandler.DatabaseHandler;
+import clone.twitter.exception.specificException.DuplicateEntry;
+import clone.twitter.exception.specificException.NoRecordFound;
 import clone.twitter.model.auth.UserAuth;
 import clone.twitter.repository.auth.AuthRepository;
 import clone.twitter.repository.auth.UserAuthRepository;
@@ -14,7 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static clone.twitter.constant.ExceptionConstants.DatabaseExceptionConstants.USERNAME_OR_HANDLE_NOT_FOUND;
+import static clone.twitter.constant.ExceptionConstants.DatabaseExceptionConstants.DUPLICATE_USERNAME_OR_EMAIL;
+import static clone.twitter.constant.ExceptionConstants.DatabaseExceptionConstants.NO_SUCH_RECORD_FOUND;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -71,7 +73,7 @@ public class AuthServiceImpl implements AuthService {
         userAuthRepository.findByEmailOrHandle(userAuth.getEmail(), userAuth.getHandle())
                 .ifPresentOrElse(
                         user -> {
-                            throw new DatabaseHandler(USERNAME_OR_HANDLE_NOT_FOUND);
+                            throw new DuplicateEntry(DUPLICATE_USERNAME_OR_EMAIL);
                         },
                         () -> userAuthRepository.save(userAuth)
                 );
@@ -95,8 +97,14 @@ public class AuthServiceImpl implements AuthService {
             currentUserAuth = userAuthRepository.save(currentUserAuth);
             return new UserAuthDTO(currentUserAuth);
         } else {
-            throw new DatabaseHandler(USERNAME_OR_HANDLE_NOT_FOUND);
+            throw new NoRecordFound(NO_SUCH_RECORD_FOUND);
         }
     }
 
+    @Override
+    public void deleteUser(final Long id) {
+        if(userAuthRepository.existsById(id)) {
+            userAuthRepository.deleteById(id);
+        }
+    }
 }
