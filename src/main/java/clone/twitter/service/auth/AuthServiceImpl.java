@@ -70,7 +70,7 @@ public class AuthServiceImpl implements AuthService {
 
         final UserAuth userAuth = new UserAuth(userAuthDTO);
 
-        userAuthRepository.findByEmailOrHandle(userAuth.getEmail(), userAuth.getHandle())
+        userAuthRepository.findFirstByEmailOrHandle(userAuth.getEmail(), userAuth.getHandle())
                 .ifPresentOrElse(
                         user -> {
                             throw new DuplicateEntry(DUPLICATE_USERNAME_OR_EMAIL);
