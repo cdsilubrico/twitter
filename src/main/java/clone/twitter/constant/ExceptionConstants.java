@@ -9,8 +9,8 @@ public class ExceptionConstants {
     public static class DatabaseExceptionConstants {
         public static final String DUPLICATE_USERNAME_OR_EMAIL = "Email or handle already exist.";
         public static final String DUPLICATE_USERNAME_OR_EMAIL_CODE = "EC001";
-        public static final String USERNAME_OR_HANDLE_NOT_FOUND = "No user found.";
-        public static final String USERNAME_OR_HANDLE_NOT_FOUND_CODE = "EC003";
+        public static final String NO_SUCH_RECORD_FOUND = "No such record found.";
+        public static final String NO_SUCH_RECORD_FOUND_CODE = "EC003";
     }
 
     public static class RequestBodyExceptionConstants {
