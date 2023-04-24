@@ -1,4 +1,4 @@
-package clone.twitter.exception.responseEntityHandler;
+package clone.twitter.exception.handler;
 
 import clone.twitter.model.exception.Error;
 import clone.twitter.model.exception.DataError;
@@ -19,12 +19,12 @@ import java.util.stream.Collectors;
 
 import static clone.twitter.constant.ExceptionConstants.RequestBodyExceptionConstants.*;
 
-@Import({DatabaseHandler.class, GenericHandler.class})
+@Import({Database.class, Generic.class})
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
-public final class ValidationHandler {
+public final class Validation {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ValidationHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Validation.class);
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleValidationErrors(final MethodArgumentNotValidException exception) {
