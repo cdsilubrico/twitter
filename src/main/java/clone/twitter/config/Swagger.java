@@ -16,7 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @NoArgsConstructor
 public class Swagger {
     @Bean
-    public Docket swagger() {
+    public Docket swaggerDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("clone.twitter"))
