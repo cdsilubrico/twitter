@@ -26,7 +26,7 @@ public class Swagger {
 
     private ApiInfo metaData() {
         return new ApiInfoBuilder()
-                .title("TEST")
+                .title("Twitter Clone API")
                 .description("Swagger Config")
                 .version("1.0")
                 .license("Apache 2.0")
