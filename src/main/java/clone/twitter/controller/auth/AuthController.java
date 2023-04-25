@@ -1,7 +1,5 @@
 package clone.twitter.controller.auth;
 
-import clone.twitter.dto.authenticate.AccountDTO;
-import clone.twitter.dto.authenticate.LoginDTO;
 import clone.twitter.dto.authenticate.UserAuthDTO;
 import clone.twitter.service.auth.AuthService;
 import clone.twitter.util.sanitize.SanitizeUtil;
