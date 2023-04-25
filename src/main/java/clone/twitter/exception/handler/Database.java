@@ -2,6 +2,7 @@ package clone.twitter.exception.handler;
 
 import clone.twitter.exception.specificException.DuplicateEntry;
 import clone.twitter.exception.specificException.NoRecordFound;
+import clone.twitter.model.exception.Error;
 import clone.twitter.util.exception.ExceptionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ public final class Database extends ResponseEntityExceptionHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(Database.class);
 
     @ExceptionHandler(DuplicateEntry.class)
-    public ResponseEntity<Object> handleDuplicateEntry() {
+    public ResponseEntity<Error> handleDuplicateEntry() {
 
         LOGGER.error(DUPLICATE_USERNAME_OR_EMAIL);
 
@@ -28,7 +29,7 @@ public final class Database extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(NoRecordFound.class)
-    public ResponseEntity<Object> handleNoElementFound() {
+    public ResponseEntity<Error> handleNoElementFound() {
 
         LOGGER.error(NO_SUCH_RECORD_FOUND);
 
