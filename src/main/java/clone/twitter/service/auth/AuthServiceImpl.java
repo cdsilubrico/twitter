@@ -65,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void deleteUser(final Long id) {
-        if(userAuthRepository.existsById(id)) {
+        if(userAuthRepository.findById(id).isPresent()) {
             userAuthRepository.deleteById(id);
         }
     }
