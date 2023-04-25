@@ -1,15 +1,19 @@
 package clone.twitter.service.auth;
 
-//import clone.twitter.dto.auth.LoginDTO;
-
 import clone.twitter.dto.authenticate.*;
 
 public interface AuthService {
-    void signup(final AccountDTO accountDTO);
+    AccountDTO getByEmail(String email);
 
-//    LoginDTO login(LoginDTO loginDTO) throws Exception;
-//
-//    boolean validateEmail(String email);
-//
-//    boolean validateHandle(String handle);
+    AccountDTO getByHandle(String handle);
+
+    AccountDTO login(LoginDTO loginDTO);
+
+    void signup(final UserAuthDTO userAuthDTO);
+
+    UserAuthDTO getById(Long id);
+
+    UserAuthDTO updateUser(UserAuthDTO userAuthDTO);
+
+    void deleteUser(Long id);
 }

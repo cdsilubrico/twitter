@@ -1,12 +1,14 @@
 plugins {
 	id 'java'
+	id 'pmd'
 	id 'org.springframework.boot' version '2.5.7'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
 group = 'clone'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+version = projectVersion
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 configurations {
 	compileOnly {
@@ -42,4 +44,13 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+pmd {
+	toolVersion = "6.37.0"
+	ignoreFailures = true
+	ruleSetFiles = files("code_quality/pmd/pmd.xml")
+	consoleOutput = true
+	reportsDir = file("$project.buildDir/reports/pmd")
+	sourceSets = [sourceSets.main]
 }

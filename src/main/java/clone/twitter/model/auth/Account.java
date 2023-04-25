@@ -9,7 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-import static clone.twitter.util.sanitize.DateUtil.getLocalDate;
+import static clone.twitter.util.DateUtil.getLocalDate;
 
 @Getter
 @Setter
@@ -33,7 +33,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id", nullable = false)
-    private long accountId;
+    private Long accountId;
 
     public Account(final AccountDTO accountDTO) {
         this.firstName = accountDTO.getFirstName();
