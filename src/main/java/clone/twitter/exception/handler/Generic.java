@@ -1,5 +1,6 @@
 package clone.twitter.exception.handler;
 
+import clone.twitter.model.exception.Error;
 import clone.twitter.util.exception.ExceptionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,7 @@ public final class Generic extends ResponseEntityExceptionHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(Generic.class);
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleGenericException() {
+    public ResponseEntity<Error> handleGenericException() {
 
         LOGGER.error(UNKNOWN_ERROR);
 
