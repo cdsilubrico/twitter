@@ -30,42 +30,6 @@ public class AuthServiceImpl implements AuthService {
     UserAuthRepository userAuthRepository;
 
     @Override
-    public AccountDTO getByEmail(final String email) {
-
-        LOGGER.info(getClass().getName() + " - " + email);
-
-        return Optional.ofNullable(authRepository.findByEmail(email))
-                .map(AccountDTO::new).orElseThrow();
-    }
-
-    @Override
-    public AccountDTO getByHandle(final String handle) {
-
-        LOGGER.info(getClass().getName() + " - " + handle);
-
-        return Optional.ofNullable(authRepository.findByHandle(handle))
-                .map(AccountDTO::new).orElseThrow();
-    }
-
-    @Override
-    public AccountDTO login(final LoginDTO loginDTO) {
-
-        final AccountDTO accountDTO;
-
-        LOGGER.info(getClass().getName() + " - " + loginDTO.toString());
-
-        if (loginDTO.getEmailOrHandle().startsWith("@")) {
-            accountDTO = Optional.ofNullable(authRepository.findByHandleAndPassword(loginDTO.getEmailOrHandle(), loginDTO.getPassword()))
-                    .map(AccountDTO::new).orElseThrow();
-        } else {
-            accountDTO = Optional.ofNullable(authRepository.findByEmailAndPassword(loginDTO.getEmailOrHandle(), loginDTO.getPassword()))
-                    .map(AccountDTO::new).orElseThrow();
-        }
-
-        return accountDTO;
-    }
-
-    @Override
     public void signup(final UserAuthDTO userAuthDTO) {
 
         final UserAuth userAuth = new UserAuth(userAuthDTO);
