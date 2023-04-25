@@ -1,7 +1,5 @@
 package clone.twitter.service.auth;
 
-import clone.twitter.dto.authenticate.AccountDTO;
-import clone.twitter.dto.authenticate.LoginDTO;
 import clone.twitter.dto.authenticate.UserAuthDTO;
 import clone.twitter.exception.specificException.DuplicateEntry;
 import clone.twitter.exception.specificException.NoRecordFound;
