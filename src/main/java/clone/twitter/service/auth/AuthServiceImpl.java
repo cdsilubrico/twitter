@@ -44,7 +44,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserAuthDTO getById(final Long id) {
-        return new UserAuthDTO(userAuthRepository.findById(id).orElseThrow());
+        return new UserAuthDTO(userAuthRepository.findById(id).orElseThrow(() -> new NoRecordFound(NO_SUCH_RECORD_FOUND)));
     }
 
     @Override
