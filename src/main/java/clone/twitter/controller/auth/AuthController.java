@@ -20,21 +20,6 @@ public class AuthController {
     @Autowired
     AuthService authService;
 
-    @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AccountDTO> login(@RequestBody final LoginDTO loginDTO) {
-        return ResponseEntity.ok(authService.login(SanitizeUtil.sanitizeLoginDto(loginDTO)));
-    }
-
-    @GetMapping(value = "/email/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AccountDTO> getByEmail(@PathVariable("email") final String email) {
-        return ResponseEntity.ok(authService.getByEmail(SanitizeUtil.sanitizeString(email)));
-    }
-
-    @GetMapping(value = "/handle/{handle}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AccountDTO> getByHandle(@PathVariable("handle") final String handle) {
-        return ResponseEntity.ok(authService.getByHandle(SanitizeUtil.sanitizeString(handle)));
-    }
-
     @PutMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserAuthDTO> updateUser(@RequestBody @Valid final UserAuthDTO userAuthDTO) {
         return ResponseEntity.ok(authService.updateUser(userAuthDTO));
