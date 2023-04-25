@@ -42,4 +42,8 @@ public class AuthController {
         authService.deleteUser(id);
     }
 
+    @GetMapping(value = "/user/{handleOrEmail}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserAuthDTO> getByEmailOrHandle(@PathVariable final String handleOrEmail) {
+        return ResponseEntity.ok(authService.getByEmailOrHandle(SanitizeUtil.sanitizeString(handleOrEmail)));
+    }
 }

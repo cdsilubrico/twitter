@@ -10,4 +10,6 @@ public interface AuthService {
     UserAuthDTO updateUser(UserAuthDTO userAuthDTO);
 
     void deleteUser(Long id);
+
+    UserAuthDTO getByEmailOrHandle(String emailOrHandle);
 }

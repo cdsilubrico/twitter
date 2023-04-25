@@ -69,4 +69,21 @@ public class AuthServiceImpl implements AuthService {
             userAuthRepository.deleteById(id);
         }
     }
+
+    @Override
+    public UserAuthDTO getByEmailOrHandle(final String emailOrHandle) {
+
+        final Optional<UserAuth> userAuthOptional;
+
+        if(emailOrHandle.startsWith("@")) {
+            userAuthOptional = userAuthRepository.findByHandle(emailOrHandle);
+        } else {
+            userAuthOptional = userAuthRepository.findByEmail(emailOrHandle);
+        }
+
+        return userAuthOptional
+                .map(UserAuthDTO::new)
+                .orElseThrow(() -> new NoRecordFound(NO_SUCH_RECORD_FOUND));
+
+    }
 }
