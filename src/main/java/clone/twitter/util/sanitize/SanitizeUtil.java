@@ -43,7 +43,7 @@ public class SanitizeUtil {
     }
 
     private static String cleanHandle(final String handle) {
-        return handle.replaceAll("@", "");
+        return "@"+handle.replaceAll("@", "");
     }
 
 }
