@@ -60,9 +60,10 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void deleteUser(final Long id) {
-        if(userAuthRepository.findById(id).isPresent()) {
-            userAuthRepository.deleteById(id);
-        }
+        userAuthRepository.findById(id).ifPresentOrElse(
+                user -> userAuthRepository.deleteById(id),
+                () -> { throw new NoRecordFound(NO_SUCH_RECORD_FOUND); }
+        );
     }
 
     @Override
