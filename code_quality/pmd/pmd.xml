@@ -4,4 +4,43 @@
          xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+    <rule ref="category/java/bestpractices.xml">
+
+        <include name="AbstractClassWithoutAbstractMethod"/>
+        <include name="AccessorClassGeneration"/>
+        <include name="AvoidMessageDigestField"/>
+        <include name="AvoidPrintStackTrace"/>
+        <include name="AvoidReassigningCatchVariables"/>
+        <include name="ArrayIsStoredDirectly"/>
+        <include name="AvoidReassigningLoopVariables"/>
+        <include name="ArrayIsStoredDirectly"/>
+        <include name="AvoidReassigningParameters"/>
+        <include name="AvoidStringBufferField"/>
+        <include name="AvoidUsingHardCodedIP"/>
+        <include name="CheckResultSet"/>
+        <include name="ConstantsInInterface"/>
+        <include name="DefaultLabelNotLastInSwitchStmt"/>
+        <include name="DoubleBraceInitialization"/>
+        <include name="ForLoopCanBeForeach"/>
+        <include name="ForLoopVariableCount"/>
+        <include name="GuardLogStatement"/>
+        <include name="LiteralsFirstInComparisons"/>
+        <include name="LooseCoupling"/>
+        <include name="MissingOverride"/>
+        <include name="OneDeclarationPerLine"/>
+        <include name="ReplaceHashtableWithMap"/>
+        <include name="ReplaceVectorWithList"/>
+        <include name="SystemPrintln"/>
+        <include name="UnusedAssignment"/>
+        <include name="UnusedFormalParameter"/>
+        <include name="UnusedLocalVariable"/>
+        <include name="UnusedPrivateField"/>
+        <include name="UseCollectionIsEmpty"/>
+        <include name="UseTryWithResources"/>
+        <include name="WhileLoopWithLiteralBoolean"/>
+
+    </rule>
+
+
 </ruleset>
