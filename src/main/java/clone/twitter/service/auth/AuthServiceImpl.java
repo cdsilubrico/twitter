@@ -4,7 +4,6 @@ import clone.twitter.dto.authenticate.UserAuthDTO;
 import clone.twitter.exception.specificException.DuplicateEntry;
 import clone.twitter.exception.specificException.NoRecordFound;
 import clone.twitter.model.auth.UserAuth;
-import clone.twitter.repository.auth.AuthRepository;
 import clone.twitter.repository.auth.UserAuthRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +19,6 @@ import static clone.twitter.util.LoggerUtil.logInfoUtil;
 @Service
 @Slf4j
 public class AuthServiceImpl implements AuthService {
-
-    @Autowired
-    AuthRepository authRepository;
 
     @Autowired
     UserAuthRepository userAuthRepository;
