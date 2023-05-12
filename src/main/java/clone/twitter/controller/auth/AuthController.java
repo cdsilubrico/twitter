@@ -16,7 +16,7 @@ import javax.validation.Valid;
 public class AuthController {
 
     @Autowired
-    AuthService authService;
+    transient AuthService authService;
 
     @PutMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserAuthDTO> updateUser(@RequestBody @Valid final UserAuthDTO userAuthDTO) {

@@ -21,7 +21,7 @@ import static clone.twitter.util.LoggerUtil.logInfoUtil;
 public class AuthServiceImpl implements AuthService {
 
     @Autowired
-    UserAuthRepository userAuthRepository;
+    transient UserAuthRepository userAuthRepository;
 
     @Override
     public void signup(final UserAuthDTO userAuthDTO) {
