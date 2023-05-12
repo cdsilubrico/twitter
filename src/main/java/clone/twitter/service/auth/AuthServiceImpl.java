@@ -62,7 +62,9 @@ public class AuthServiceImpl implements AuthService {
     public void deleteUser(final Long id) {
         userAuthRepository.findById(id).ifPresentOrElse(
                 user -> userAuthRepository.deleteById(id),
-                () -> { throw new NoRecordFound(NO_SUCH_RECORD_FOUND); }
+                () -> {
+                    throw new NoRecordFound(NO_SUCH_RECORD_FOUND);
+                }
         );
     }
 
@@ -71,7 +73,7 @@ public class AuthServiceImpl implements AuthService {
 
         final Optional<UserAuth> userAuthOptional;
 
-        if(emailOrHandle.startsWith("@")) {
+        if (emailOrHandle.startsWith("@")) {
             userAuthOptional = userAuthRepository.findByHandle(emailOrHandle);
         } else {
             userAuthOptional = userAuthRepository.findByEmail(emailOrHandle);
