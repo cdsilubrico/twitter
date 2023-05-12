@@ -32,7 +32,7 @@ public class AuthController {
 
     @GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<UserAuthDTO> user(@PathVariable final Long id) {
+    public ResponseEntity<UserAuthDTO> getUser(@PathVariable final Long id) {
         return ResponseEntity.ok(authService.getById(id));
     }
 
