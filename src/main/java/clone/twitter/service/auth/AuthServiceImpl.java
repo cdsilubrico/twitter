@@ -73,14 +73,12 @@ public class AuthServiceImpl implements AuthService {
         final Optional<Long> idInLongOpt = Optional.of(id)
                 .map(Long::parseLong);
 
-        idInLongOpt.ifPresent(idInLong -> {
-            userAuthRepository.findById(idInLong).ifPresentOrElse(
-                    user -> userAuthRepository.deleteById(idInLong),
-                    () -> {
-                        throw new NoRecordFound(NO_SUCH_RECORD_FOUND);
-                    }
-            );
-        });
+        idInLongOpt.ifPresent(idInLong -> userAuthRepository.findById(idInLong).ifPresentOrElse(
+                user -> userAuthRepository.deleteById(idInLong),
+                () -> {
+                    throw new NoRecordFound(NO_SUCH_RECORD_FOUND);
+                }
+        ));
 
     }
 
