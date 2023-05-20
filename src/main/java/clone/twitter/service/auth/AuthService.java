@@ -1,7 +1,9 @@
 package clone.twitter.service.auth;
 
 import clone.twitter.dto.authenticate.*;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface AuthService {
     void signup(final UserAuthDTO userAuthDTO);
 
@@ -9,7 +11,7 @@ public interface AuthService {
 
     UserAuthDTO updateUser(UserAuthDTO userAuthDTO);
 
-    void deleteUser(Long id);
+    void deleteUser(String userAuthId);
 
     UserAuthDTO getByEmailOrHandle(String emailOrHandle);
 }

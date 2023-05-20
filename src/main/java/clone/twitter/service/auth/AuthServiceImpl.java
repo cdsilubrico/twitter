@@ -63,16 +63,22 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void deleteUser(final Long id) {
+    public void deleteUser(final String id) {
 
         logInfoUtil(log, START_DELETE_USER_AUTH_BY_ID);
 
-        userAuthRepository.findById(id).ifPresentOrElse(
-                user -> userAuthRepository.deleteById(id),
-                () -> {
-                    throw new NoRecordFound(NO_SUCH_RECORD_FOUND);
-                }
-        );
+        final Optional<Long> idInLongOpt = Optional.of(id)
+                .map(Long::parseLong);
+
+        idInLongOpt.ifPresent(idInLong -> {
+            userAuthRepository.findById(idInLong).ifPresentOrElse(
+                    user -> userAuthRepository.deleteById(idInLong),
+                    () -> {
+                        throw new NoRecordFound(NO_SUCH_RECORD_FOUND);
+                    }
+            );
+        });
+
     }
 
     @Override

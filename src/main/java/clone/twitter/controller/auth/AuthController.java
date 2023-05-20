@@ -38,8 +38,8 @@ public class AuthController {
 
     @DeleteMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteUser(@PathVariable final Long id) {
-        authService.deleteUser(id);
+    public void deleteUser(@PathVariable final String id) {
+        authService.deleteUser(SanitizeUtil.cleanId(id));
     }
 
     @GetMapping(value = "/users/{handleOrEmail}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

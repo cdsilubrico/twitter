@@ -5,6 +5,8 @@ import clone.twitter.dto.authenticate.LoginDTO;
 import clone.twitter.dto.authenticate.UserAuthDTO;
 import org.apache.commons.text.StringEscapeUtils;
 
+import static clone.twitter.constant.RegularExpressionConstants.NUMBERS_ONLY;
+
 public class SanitizeUtil {
     public static AccountDTO sanitizeAccountDto(final AccountDTO accountDTO) {
 
@@ -36,6 +38,10 @@ public class SanitizeUtil {
         sanitizedLoginDto.setPassword(sanitizeString(loginDTO.getPassword()));
 
         return sanitizedLoginDto;
+    }
+
+    public static String cleanId(final String userAuthId) {
+        return userAuthId.replaceAll(NUMBERS_ONLY, "");
     }
 
     public static String sanitizeString(final String unsanitizedString) {
