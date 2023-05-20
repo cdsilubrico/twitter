@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public interface AuthService {
     void signup(final UserAuthDTO userAuthDTO);
 
-    UserAuthDTO getById(Long id);
+    UserAuthDTO getById(String userAuthId);
 
     UserAuthDTO updateUser(UserAuthDTO userAuthDTO);
 

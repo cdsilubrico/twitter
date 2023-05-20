@@ -41,11 +41,14 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public UserAuthDTO getById(final Long id) {
+    public UserAuthDTO getById(final String userAuthId) {
 
         logInfoUtil(log, START_GET_BY_ID);
 
-        return new UserAuthDTO(userAuthRepository.findById(id).orElseThrow(
+        final Optional<Long> idInLongOpt = Optional.of(userAuthId)
+                .map(Long::parseLong);
+
+        return new UserAuthDTO(userAuthRepository.findById(idInLongOpt.get()).orElseThrow(
                 () -> new NoRecordFound(NO_SUCH_RECORD_FOUND)));
     }
 

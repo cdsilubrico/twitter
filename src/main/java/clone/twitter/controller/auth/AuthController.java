@@ -32,8 +32,8 @@ public class AuthController {
 
     @GetMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<UserAuthDTO> getUser(@PathVariable final Long id) {
-        return ResponseEntity.ok(authService.getById(id));
+    public ResponseEntity<UserAuthDTO> getUser(@PathVariable final String id) {
+        return ResponseEntity.ok(authService.getById(SanitizeUtil.cleanId(id)));
     }
 
     @DeleteMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
