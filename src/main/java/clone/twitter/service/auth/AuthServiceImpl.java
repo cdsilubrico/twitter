@@ -6,7 +6,6 @@ import clone.twitter.exception.specificException.NoRecordFound;
 import clone.twitter.model.auth.UserAuth;
 import clone.twitter.repository.auth.UserAuthRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -20,8 +19,11 @@ import static clone.twitter.util.LoggerUtil.logInfoUtil;
 @Slf4j
 public class AuthServiceImpl implements AuthService {
 
-    @Autowired
-    transient UserAuthRepository userAuthRepository;
+    private transient final UserAuthRepository userAuthRepository;
+
+    public AuthServiceImpl(final UserAuthRepository userAuthRepository) {
+        this.userAuthRepository = userAuthRepository;
+    }
 
     @Override
     public void signup(final UserAuthDTO userAuthDTO) {
