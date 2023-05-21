@@ -53,7 +53,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public UserAuthDTO updateUser(UserAuthDTO userAuthDTO) {
+    public UserAuthDTO updateUser(final UserAuthDTO userAuthDTO) {
 
         logInfoUtil(log, START_UPDATE_USER_AUTH);
 
