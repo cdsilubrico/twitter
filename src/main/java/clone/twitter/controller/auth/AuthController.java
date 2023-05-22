@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -44,7 +45,7 @@ public class AuthController {
         authService.deleteUser(SanitizeUtil.cleanId(id));
     }
 
-    @GetMapping(value = "/users/{handleOrEmail}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/users/handleOrEmail/{handleOrEmail}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserAuthDTO> getByEmailOrHandle(@PathVariable final String handleOrEmail) {
         return ResponseEntity.ok(authService.getByEmailOrHandle(SanitizeUtil.sanitizeString(handleOrEmail)));
     }
