@@ -8,6 +8,10 @@ import org.apache.commons.text.StringEscapeUtils;
 import static clone.twitter.constant.RegularExpressionConstants.NUMBERS_ONLY;
 
 public class SanitizeUtil {
+
+    private SanitizeUtil() {
+    }
+
     public static AccountDTO sanitizeAccountDto(final AccountDTO accountDTO) {
 
         final AccountDTO sanitizedAccountDto = new AccountDTO();
@@ -49,7 +53,7 @@ public class SanitizeUtil {
     }
 
     private static String cleanHandle(final String handle) {
-        return "@"+handle.replaceAll("@", "");
+        return "@" + handle.replace("@", "");
     }
 
 }

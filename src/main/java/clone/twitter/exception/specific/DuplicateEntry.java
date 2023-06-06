@@ -1,4 +1,4 @@
-package clone.twitter.exception.specificException;
+package clone.twitter.exception.specific;
 
 import org.springframework.dao.DataIntegrityViolationException;
 

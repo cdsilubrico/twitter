@@ -15,7 +15,7 @@ import javax.validation.Valid;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private transient final AuthService authService;
+    private final AuthService authService;
 
     public AuthController(AuthService authService) {
         this.authService = authService;

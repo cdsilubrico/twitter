@@ -1,8 +1,8 @@
 package clone.twitter.service.auth;
 
 import clone.twitter.dto.authenticate.UserAuthDTO;
-import clone.twitter.exception.specificException.DuplicateEntry;
-import clone.twitter.exception.specificException.NoRecordFound;
+import clone.twitter.exception.specific.DuplicateEntry;
+import clone.twitter.exception.specific.NoRecordFound;
 import clone.twitter.model.auth.UserAuth;
 import clone.twitter.repository.auth.UserAuthRepository;
 import lombok.extern.slf4j.Slf4j;

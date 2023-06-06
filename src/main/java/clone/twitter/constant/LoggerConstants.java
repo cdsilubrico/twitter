@@ -2,6 +2,10 @@ package clone.twitter.constant;
 
 public class LoggerConstants {
 
+    private LoggerConstants() {
+
+    }
+
     private static final String START = "START - ";
     public static final String START_SIGN_UP = START + "SIGN UP";
     public static final String START_GET_BY_ID = START + "GET USER AUTH DETAILS BY ID";
