@@ -4,8 +4,6 @@ import clone.twitter.model.exception.Error;
 import clone.twitter.model.exception.DataError;
 import clone.twitter.model.exception.RequestBodyError;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -16,8 +14,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static clone.twitter.constant.ExceptionConstants.RequestBodyExceptionConstants.*;
 
