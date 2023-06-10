@@ -14,4 +14,10 @@ public class LoggerUtil {
         }
     }
 
+    public static void logErrorUtil(final Logger log, final String message) {
+        if(log.isErrorEnabled()) {
+            log.error(message);
+        }
+    }
+
 }
