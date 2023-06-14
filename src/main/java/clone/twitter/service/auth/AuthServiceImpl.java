@@ -19,7 +19,7 @@ import static clone.twitter.util.LoggerUtil.logInfoUtil;
 @Slf4j
 public class AuthServiceImpl implements AuthService {
 
-    private transient final UserAuthRepository userAuthRepository;
+    final UserAuthRepository userAuthRepository;
 
     public AuthServiceImpl(final UserAuthRepository userAuthRepository) {
         this.userAuthRepository = userAuthRepository;
