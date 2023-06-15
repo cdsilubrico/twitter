@@ -1,17 +1,60 @@
+# Server configuration for all profiles
 server:
   port: 8080
   servlet:
     context-path: /twitter-clone
 
+# Spring configuration for all profiles
 spring:
+  application:
+    name: TwitterCloneService
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  hikari:
+    connectionTimeout: 20000
+    maximum-pool-size: 5
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+
+---
+#local
+spring:
+  config:
+    active:
+      on-profile: local
   datasource:
     url: jdbc:postgresql://localhost:5432/practice_app_one
-    driver-class-name: org.postgresql.Driver
     username: postgres
     password: root
-    hikari:
-      connectionTimeout: 20000
-      maximum-pool-size: 5
-    jpa:
-      database: POSTGRESQL
-      show-sql: true
+
+#---
+#dev configuration
+#spring:
+#  config:
+#    active:
+#      on-profile: dev
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/practice_app_one_dev
+#    username: postgresDev
+#    password: rootDev
+
+#---
+#staging configuration
+#spring:
+#  profiles:
+#    active: staging
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/practice_app_one_staging
+#    username: postgresStaging
+#    password: rootStaging
+
+#---
+#prod
+#spring:
+#  profiles:
+#    active: prod
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/practice_app_one_prod
+#    username: postgresProd
+#    password: rootProd
