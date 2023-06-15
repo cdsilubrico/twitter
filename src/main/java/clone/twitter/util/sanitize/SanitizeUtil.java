@@ -4,6 +4,7 @@ import clone.twitter.dto.authenticate.AccountDTO;
 import clone.twitter.dto.authenticate.LoginDTO;
 import clone.twitter.dto.authenticate.UserAuthDTO;
 import org.apache.commons.text.StringEscapeUtils;
+import org.springframework.web.util.HtmlUtils;
 
 import static clone.twitter.constant.RegularExpressionConstants.NUMBERS_ONLY;
 
@@ -44,16 +45,24 @@ public class SanitizeUtil {
         return sanitizedLoginDto;
     }
 
-    public static String cleanId(final String userAuthId) {
-        return userAuthId.replaceAll(NUMBERS_ONLY, "");
+    public static String acceptNumbersOnly(final String userAuthId) {
+        return sanitizeString(userAuthId).replaceAll(NUMBERS_ONLY, "");
+    }
+
+    private static String removeSpecialChars(final String string) {
+        return StringEscapeUtils.escapeJava(string);
+    }
+
+    private static String removeHtmlSpecialChars(final String emailOrHandle) {
+        return HtmlUtils.htmlEscape(emailOrHandle);
     }
 
     public static String sanitizeString(final String unsanitizedString) {
-        return StringEscapeUtils.escapeJava(unsanitizedString);
+        return removeHtmlSpecialChars(removeSpecialChars(unsanitizedString));
     }
 
     private static String cleanHandle(final String handle) {
-        return "@" + handle.replace("@", "");
+        return sanitizeString("@" + handle.replace("@", ""));
     }
 
 }

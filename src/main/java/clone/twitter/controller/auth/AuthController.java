@@ -36,17 +36,17 @@ public class AuthController {
     @GetMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<UserAuthDTO> getUser(@PathVariable final String id) {
-        return ResponseEntity.ok(authService.getById(SanitizeUtil.cleanId(id)));
+        return ResponseEntity.ok(authService.getById(SanitizeUtil.acceptNumbersOnly(id)));
     }
 
     @DeleteMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteUser(@PathVariable final String id) {
-        authService.deleteUser(SanitizeUtil.cleanId(id));
+        authService.deleteUser(SanitizeUtil.acceptNumbersOnly(id));
     }
 
     @GetMapping(value = "/users/handleOrEmail/{handleOrEmail}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserAuthDTO> getByEmailOrHandle(@PathVariable final String handleOrEmail) {
-        return ResponseEntity.ok(authService.getByEmailOrHandle(SanitizeUtil.sanitizeString(handleOrEmail)));
+        return ResponseEntity.ok(authService.getByEmailOrHandle(handleOrEmail));
     }
 }
