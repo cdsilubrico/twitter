@@ -27,14 +27,12 @@ public class AuthController {
     }
 
     @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity<UserAuthDTO> signup(@RequestBody @Valid final UserAuthDTO userAuthDTO) {
         authService.signup(SanitizeUtil.sanitizeUserAuthDto(userAuthDTO));
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<UserAuthDTO> getUserById(@PathVariable final String id) {
         return ResponseEntity.ok(authService.getById(SanitizeUtil.acceptNumbersOnly(id)));
     }
