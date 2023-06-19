@@ -35,7 +35,7 @@ public class AuthController {
 
     @GetMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<UserAuthDTO> getUser(@PathVariable final String id) {
+    public ResponseEntity<UserAuthDTO> getUserById(@PathVariable final String id) {
         return ResponseEntity.ok(authService.getById(SanitizeUtil.acceptNumbersOnly(id)));
     }
 
