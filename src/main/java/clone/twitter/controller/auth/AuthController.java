@@ -47,6 +47,6 @@ public class AuthController {
 
     @GetMapping(value = "/users/handleOrEmail/{handleOrEmail}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserAuthDTO> getByEmailOrHandle(@PathVariable final String handleOrEmail) {
-        return ResponseEntity.ok(authService.getByEmailOrHandle(handleOrEmail));
+        return ResponseEntity.ok(authService.getByEmailOrHandle(SanitizeUtil.sanitizeString(handleOrEmail)));
     }
 }
