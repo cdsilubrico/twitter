@@ -23,7 +23,7 @@ public class AuthController {
 
     @PutMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserAuthDTO> updateUser(@RequestBody @Valid final UserAuthDTO userAuthDTO) {
-        return ResponseEntity.ok(authService.updateUser(userAuthDTO));
+        return ResponseEntity.ok(authService.updateUser(SanitizeUtil.sanitizeUserAuthDto(userAuthDTO)));
     }
 
     @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
