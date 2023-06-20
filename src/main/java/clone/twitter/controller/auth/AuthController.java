@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
 @RestController
 @CrossOrigin
 @RequestMapping("/auth")
@@ -21,8 +20,8 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @PutMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserAuthDTO> updateUser(@RequestBody @Valid final UserAuthDTO userAuthDTO) {
+    @PatchMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserAuthDTO> updateUser(@RequestBody final UserAuthDTO userAuthDTO) {
         return ResponseEntity.ok(authService.updateUser(SanitizeUtil.sanitizeUserAuthDto(userAuthDTO)));
     }
 
