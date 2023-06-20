@@ -43,15 +43,12 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public UserAuthDTO getById(final String userAuthId) {
+    public UserAuthDTO getById(final Long userAuthId) {
 
         logInfoUtil(log, START_GET_BY_ID);
 
-        final Optional<Long> idInLongOpt = Optional.of(userAuthId)
-                .map(Long::parseLong);
-
-        return new UserAuthDTO(userAuthRepository.findById(idInLongOpt.get()).orElseThrow(
-                () -> new NoRecordFound(NO_SUCH_RECORD_FOUND)));
+        return new UserAuthDTO(userAuthRepository.findById(userAuthId)
+                .orElseThrow(() -> new NoRecordFound(NO_SUCH_RECORD_FOUND)));
     }
 
     @Override
@@ -71,27 +68,22 @@ public class AuthServiceImpl implements AuthService {
         Optional<String> handleOpt = Optional.ofNullable(newUserAuthDTO.getHandle());
         handleOpt.ifPresent(handle -> userAuthRepository.findByHandle(handle)
                 .ifPresentOrElse(value -> {
-                    throw  new DuplicateEntry(DUPLICATE_USERNAME_OR_EMAIL);
+                    throw new DuplicateEntry(DUPLICATE_USERNAME_OR_EMAIL);
                 }, () -> currentUserAuth.setHandle(handle)));
 
         return new UserAuthDTO(userAuthRepository.save(currentUserAuth));
     }
 
     @Override
-    public void deleteUser(final String id) {
+    public void deleteUser(final Long id) {
 
         logInfoUtil(log, START_DELETE_USER_AUTH_BY_ID);
 
-        final Optional<Long> idInLongOpt = Optional.of(id)
-                .map(Long::parseLong);
-
-        idInLongOpt.ifPresent(idInLong -> userAuthRepository.findById(idInLong).ifPresentOrElse(
-                user -> userAuthRepository.deleteById(idInLong),
-                () -> {
-                    throw new NoRecordFound(NO_SUCH_RECORD_FOUND);
-                }
-        ));
-
+        userAuthRepository.findById(id)
+                .ifPresentOrElse(userAuthRepository::delete,
+                        () -> {
+                            throw new NoRecordFound(NO_SUCH_RECORD_FOUND);
+                        });
     }
 
     @Override

@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 public interface AuthService {
     void signup(final UserAuthDTO userAuthDTO);
 
-    UserAuthDTO getById(String userAuthId);
+    UserAuthDTO getById(Long userAuthId);
 
     UserAuthDTO updateUser(UserAuthDTO userAuthDTO);
 
-    void deleteUser(String userAuthId);
+    void deleteUser(Long userAuthId);
 
     UserAuthDTO getByEmailOrHandle(String emailOrHandle);
 }
