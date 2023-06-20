@@ -6,6 +6,8 @@ import clone.twitter.dto.authenticate.UserAuthDTO;
 import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.web.util.HtmlUtils;
 
+import java.util.Optional;
+
 import static clone.twitter.constant.RegularExpressionConstants.NUMBERS_ONLY;
 
 public class SanitizeUtil {
@@ -29,9 +31,15 @@ public class SanitizeUtil {
     public static UserAuthDTO sanitizeUserAuthDto(final UserAuthDTO userAuthDTO) {
         final UserAuthDTO sanitizedUserAuthDTO = new UserAuthDTO();
 
-        sanitizedUserAuthDTO.setHandle(sanitizeString(cleanHandle(userAuthDTO.getHandle())));
-        sanitizedUserAuthDTO.setEmail(sanitizeString(userAuthDTO.getEmail()));
-        sanitizedUserAuthDTO.setPassword(sanitizeString(userAuthDTO.getPassword()));
+        Optional<Long> idOpt = Optional.ofNullable(userAuthDTO.getAccountId());
+        Optional<String> handleOpt = Optional.ofNullable(userAuthDTO.getHandle());
+        Optional<String> emailOpt = Optional.ofNullable(userAuthDTO.getEmail());
+        Optional<String> passwordOpt = Optional.ofNullable(userAuthDTO.getPassword());
+
+        idOpt.ifPresent(sanitizedUserAuthDTO::setAccountId);
+        handleOpt.ifPresent(handle -> sanitizedUserAuthDTO.setHandle(sanitizeString(handle)));
+        emailOpt.ifPresent(email -> sanitizedUserAuthDTO.setEmail(sanitizeString(email)));
+        passwordOpt.ifPresent(password -> sanitizedUserAuthDTO.setPassword(sanitizeString(password)));
 
         return sanitizedUserAuthDTO;
     }
