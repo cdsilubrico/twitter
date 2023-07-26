@@ -52,12 +52,3 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
-
-pmd {
-    toolVersion = "6.37.0"
-    ignoreFailures = true
-    ruleSetFiles = files("code_quality/pmd/pmd.xml")
-    consoleOutput = true
-    reportsDir = file("$project.buildDir/reports/pmd")
-    sourceSets = [sourceSets.main]
-}
