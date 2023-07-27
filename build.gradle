@@ -3,6 +3,7 @@ plugins {
     id 'pmd'
     id 'org.springframework.boot' version '2.5.7'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'org.sonarqube' version '4.2.1.3168'
 }
 
 group = 'clone'
@@ -51,4 +52,13 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "twitter-clone-service")
+        property("sonar.projectName", "twitter-clone-service")
+        property("sonar.host.url", "http://localhost:9000")
+        property("sonar.token", "sqp_501d4b4ab15bd21c61e49de32e43d4885d47630c")
+    }
 }
