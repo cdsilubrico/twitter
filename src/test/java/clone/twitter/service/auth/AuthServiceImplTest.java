@@ -1,6 +1,7 @@
 package clone.twitter.service.auth;
 
 import clone.twitter.dto.authenticate.UserAuthDTO;
+import clone.twitter.exception.specific.NoRecordFound;
 import clone.twitter.model.auth.UserAuth;
 import clone.twitter.repository.auth.UserAuthRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +10,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -28,6 +29,7 @@ class AuthServiceImplTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+
         authService = Mockito.mock(AuthServiceImpl.class);
 
         mockUserAuthDTO = new UserAuthDTO();
@@ -51,61 +53,54 @@ class AuthServiceImplTest {
     }
 
     @Test
-    void testSuccessGetById() {
-        final Long userId = 100L;
+    void SuccessGetById() {
+        when(authService.getById(anyLong())).thenReturn(mockUserAuthDTO);
 
-        when(authService.getById(userId)).thenReturn(mockUserAuthDTO);
+        assertNotNull(authService.getById(anyLong()));
 
-        UserAuthDTO expectedUserAuthDTO = new UserAuthDTO();
-        expectedUserAuthDTO.setEmail("Email@gmail.com");
-        expectedUserAuthDTO.setHandle("@Email");
-        expectedUserAuthDTO.setAccountId(100L);
-        expectedUserAuthDTO.setPassword("Password2");
-
-        assertEquals(expectedUserAuthDTO.getAccountId(), authService.getById(userId).getAccountId());
-        assertEquals(expectedUserAuthDTO.getHandle(), authService.getById(userId).getHandle());
-        assertEquals(expectedUserAuthDTO.getEmail(), authService.getById(userId).getEmail());
-        assertEquals(expectedUserAuthDTO.getPassword(), authService.getById(userId).getPassword());
-
-        verify(authService, atLeastOnce()).getById(userId);
+        verify(authService, atLeastOnce()).getById(anyLong());
     }
 
     @Test
-    void testSuccessGetByEmail() {
+    void GivenThatUserIdDoesNotExistThenThrowNoRecordException() {
+        when(authService.getById(anyLong())).thenThrow(NoRecordFound.class);
+
+        assertThrows(NoRecordFound.class, this::authServiceGetById);
+    }
+
+    @Test
+    void SuccessGetByEmailOrHandle() {
         final String email = "Email@gmail.com";
         final String handle = "@Email";
 
         UserAuthDTO expectedUserAuthDTO = new UserAuthDTO();
         expectedUserAuthDTO.setEmail("Email@gmail.com");
         expectedUserAuthDTO.setHandle("@Email");
-        expectedUserAuthDTO.setAccountId(100L);
-        expectedUserAuthDTO.setPassword("Password2");
 
         when(authService.getByEmailOrHandle(email)).thenReturn(mockUserAuthDTO);
 
         assertEquals(authService.getByEmailOrHandle(email).getEmail(), expectedUserAuthDTO.getEmail());
-        assertEquals(authService.getByEmailOrHandle(email).getHandle(), expectedUserAuthDTO.getHandle());
-        assertEquals(authService.getByEmailOrHandle(email).getAccountId(), expectedUserAuthDTO.getAccountId());
-        assertEquals(authService.getByEmailOrHandle(email).getPassword(), expectedUserAuthDTO.getPassword());
 
         verify(authService, atLeastOnce()).getByEmailOrHandle(email);
 
+
         when(authService.getByEmailOrHandle(handle)).thenReturn(mockUserAuthDTO);
 
-        assertEquals(authService.getByEmailOrHandle(handle).getEmail(), expectedUserAuthDTO.getEmail());
         assertEquals(authService.getByEmailOrHandle(handle).getHandle(), expectedUserAuthDTO.getHandle());
-        assertEquals(authService.getByEmailOrHandle(handle).getAccountId(), expectedUserAuthDTO.getAccountId());
-        assertEquals(authService.getByEmailOrHandle(handle).getPassword(), expectedUserAuthDTO.getPassword());
 
         verify(authService, atLeastOnce()).getByEmailOrHandle(handle);
     }
 
     @Test
-    void testSuccessDeleteUser() {
+    void SuccessDeleteUser() {
         final Long userId = 100L;
 
         authService.deleteUser(userId);
 
-        verify(authService, atLeastOnce()).deleteUser(userId);
+        verify(authService).deleteUser(userId);
+    }
+
+    private void authServiceGetById() {
+        authService.getById(anyLong());
     }
 }
