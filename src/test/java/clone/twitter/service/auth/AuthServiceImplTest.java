@@ -45,7 +45,7 @@ class AuthServiceImplTest {
     void SuccessSignupMethod() {
         userAuth = new UserAuth(mockUserAuthDTO);
 
-        when(mockUserAuthRepository.save(any(UserAuth.class))).thenReturn(userAuth);
+        when(authService.signup(mockUserAuthDTO)).thenReturn(mockUserAuthDTO);
 
         authService.signup(mockUserAuthDTO);
 
