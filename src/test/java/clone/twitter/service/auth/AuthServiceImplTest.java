@@ -2,13 +2,9 @@ package clone.twitter.service.auth;
 
 import clone.twitter.dto.authenticate.UserAuthDTO;
 import clone.twitter.exception.specific.NoRecordFound;
-import clone.twitter.model.auth.UserAuth;
-import clone.twitter.repository.auth.UserAuthRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -16,28 +12,18 @@ import static org.mockito.Mockito.*;
 class AuthServiceImplTest {
     private AuthService authService;
 
-    @Mock
-    private UserAuthRepository mockUserAuthRepository;
-
-    private UserAuth userAuth;
-
     private UserAuthDTO mockUserAuthDTO;
-
-    private UserAuthDTO expectedUserAuthDTO;
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.openMocks(this);
 
-        authService = Mockito.mock(AuthServiceImpl.class);
+        authService = Mockito.mock(AuthService.class);
 
         mockUserAuthDTO = new UserAuthDTO();
         mockUserAuthDTO.setEmail("Email@gmail.com");
         mockUserAuthDTO.setHandle("@Email");
         mockUserAuthDTO.setAccountId(100L);
         mockUserAuthDTO.setPassword("Password2");
-
-        expectedUserAuthDTO = new UserAuthDTO();
     }
 
     @Test
