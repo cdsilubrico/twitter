@@ -42,7 +42,7 @@ class AuthServiceImplTest {
     }
 
     @Test
-    void testSignupMethod() {
+    void SuccessSignupMethod() {
         userAuth = new UserAuth(mockUserAuthDTO);
 
         when(mockUserAuthRepository.save(any(UserAuth.class))).thenReturn(userAuth);
@@ -51,7 +51,6 @@ class AuthServiceImplTest {
 
         verify(authService, atLeastOnce()).signup(mockUserAuthDTO);
     }
-
     @Test
     void SuccessGetById() {
         when(authService.getById(anyLong())).thenReturn(mockUserAuthDTO);
