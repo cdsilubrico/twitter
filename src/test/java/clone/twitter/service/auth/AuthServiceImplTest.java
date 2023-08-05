@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class AuthServiceImplTest {
@@ -43,8 +42,6 @@ class AuthServiceImplTest {
 
     @Test
     void SuccessSignupMethod() {
-        userAuth = new UserAuth(mockUserAuthDTO);
-
         when(authService.signup(mockUserAuthDTO)).thenReturn(mockUserAuthDTO);
 
         authService.signup(mockUserAuthDTO);
