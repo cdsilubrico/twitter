@@ -1,6 +1,7 @@
 package clone.twitter.service.auth;
 
 import clone.twitter.dto.authenticate.UserAuthDTO;
+import clone.twitter.exception.specific.DuplicateEntry;
 import clone.twitter.exception.specific.NoRecordFound;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,6 +35,14 @@ class AuthServiceImplTest {
 
         verify(authService, atLeastOnce()).signup(mockUserAuthDTO);
     }
+
+    @Test
+    void GivenUserIdExistWhenSigningUpThenThrowDuplicateEntryException() {
+        when(authService.signup(mockUserAuthDTO)).thenThrow(DuplicateEntry.class);
+
+        assertThrows(DuplicateEntry.class, () -> authService.signup(mockUserAuthDTO));
+    }
+
     @Test
     void SuccessGetById() {
         when(authService.getById(anyLong())).thenReturn(mockUserAuthDTO);
@@ -74,6 +83,13 @@ class AuthServiceImplTest {
     }
 
     @Test
+    void GivenThatEmailOrHandleDoesNotExistThenThrowNoRecordFoundException() {
+        when(authService.getByEmailOrHandle(anyString())).thenThrow(NoRecordFound.class);
+
+        assertThrows(NoRecordFound.class, this::authServiceGetByEmailOrHandle);
+    }
+
+    @Test
     void SuccessDeleteUser() {
         final Long userId = 100L;
 
@@ -84,5 +100,9 @@ class AuthServiceImplTest {
 
     private void authServiceGetById() {
         authService.getById(anyLong());
+    }
+
+    private void authServiceGetByEmailOrHandle() {
+        authService.getByEmailOrHandle(anyString());
     }
 }
