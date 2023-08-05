@@ -26,20 +26,16 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void signup(final UserAuthDTO userAuthDTO) {
+    public UserAuthDTO signup(UserAuthDTO userAuthDTO) {
 
         logInfoUtil(log, START_SIGN_UP);
 
-        final UserAuth userAuth = new UserAuth(userAuthDTO);
+        userAuthRepository.findFirstByEmailOrHandle(userAuthDTO.getEmail(), userAuthDTO.getHandle())
+                .ifPresent(userAuth -> {
+                    throw new DuplicateEntry(DUPLICATE_USERNAME_OR_EMAIL);
+                });
 
-        userAuthRepository.findFirstByEmailOrHandle(userAuth.getEmail(), userAuth.getHandle())
-                .ifPresentOrElse(
-                        user -> {
-                            throw new DuplicateEntry(DUPLICATE_USERNAME_OR_EMAIL);
-                        },
-                        () -> userAuthRepository.save(userAuth)
-                );
-
+        return new UserAuthDTO(userAuthRepository.save(new UserAuth(userAuthDTO)));
     }
 
     @Override
