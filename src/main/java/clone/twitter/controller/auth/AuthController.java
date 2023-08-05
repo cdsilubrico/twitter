@@ -27,8 +27,8 @@ public class AuthController {
 
     @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserAuthDTO> signup(@RequestBody @Valid final UserAuthDTO userAuthDTO) {
-        authService.signup(SanitizeUtil.sanitizeUserAuthDto(userAuthDTO));
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(authService.signup(SanitizeUtil.sanitizeUserAuthDto(userAuthDTO)));
     }
 
     @GetMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
