@@ -37,7 +37,7 @@ class AuthServiceImplTest {
     }
 
     @Test
-    void GivenUserIdExistWhenSigningUpThenThrowDuplicateEntryException() {
+    void GivenUserAuthIdExistWhenSigningUpThenThrowDuplicateEntryException() {
         when(authService.signup(mockUserAuthDTO)).thenThrow(DuplicateEntry.class);
 
         assertThrows(DuplicateEntry.class, () -> authService.signup(mockUserAuthDTO));
@@ -53,7 +53,7 @@ class AuthServiceImplTest {
     }
 
     @Test
-    void GivenThatUserIdDoesNotExistThenThrowNoRecordException() {
+    void GivenThatUserAuthIdDoesNotExistThenThrowNoRecordException() {
         when(authService.getById(anyLong())).thenThrow(NoRecordFound.class);
 
         assertThrows(NoRecordFound.class, this::authServiceGetById);
@@ -98,11 +98,24 @@ class AuthServiceImplTest {
         verify(authService).deleteUser(userId);
     }
 
+    @Test
+    void GivenThatUserIdDoesNotExistWhenDeletingUserAuthThenThrowNoRecordFoundException() {
+        doNothing().when(authService).deleteUser(anyLong());
+
+        doThrow(NoRecordFound.class).when(authService).deleteUser(anyLong());
+
+        assertThrows(NoRecordFound.class, this::authServiceDeleteById);
+    }
+
     private void authServiceGetById() {
         authService.getById(anyLong());
     }
 
     private void authServiceGetByEmailOrHandle() {
         authService.getByEmailOrHandle(anyString());
+    }
+
+    private void authServiceDeleteById() {
+        authService.deleteUser(anyLong());
     }
 }
