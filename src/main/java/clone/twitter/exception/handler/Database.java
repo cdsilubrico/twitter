@@ -1,10 +1,10 @@
 package clone.twitter.exception.handler;
 
-import clone.twitter.exception.specificException.DuplicateEntry;
-import clone.twitter.exception.specificException.NoRecordFound;
+import clone.twitter.exception.specific.DuplicateEntry;
+import clone.twitter.exception.specific.NoRecordFound;
+import clone.twitter.model.exception.Error;
 import clone.twitter.util.exception.ExceptionUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,21 +16,21 @@ import static clone.twitter.constant.ExceptionConstants.DatabaseExceptionConstan
 
 @ControllerAdvice
 @Order(2)
+@Slf4j
 public final class Database extends ResponseEntityExceptionHandler {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Database.class);
 
     @ExceptionHandler(DuplicateEntry.class)
-    public ResponseEntity<Object> handleDuplicateEntry() {
+    public ResponseEntity<Error> handleDuplicateEntry() {
 
-        LOGGER.error(DUPLICATE_USERNAME_OR_EMAIL);
+        log.error(DUPLICATE_USERNAME_OR_EMAIL);
 
         return ExceptionUtil.responseErrorUtil(DUPLICATE_USERNAME_OR_EMAIL, DUPLICATE_USERNAME_OR_EMAIL_CODE, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(NoRecordFound.class)
-    public ResponseEntity<Object> handleNoElementFound() {
+    public ResponseEntity<Error> handleNoElementFound() {
 
-        LOGGER.error(NO_SUCH_RECORD_FOUND);
+        log.error(NO_SUCH_RECORD_FOUND);
 
         return ExceptionUtil.responseErrorUtil(NO_SUCH_RECORD_FOUND, NO_SUCH_RECORD_FOUND_CODE, HttpStatus.BAD_REQUEST);
     }

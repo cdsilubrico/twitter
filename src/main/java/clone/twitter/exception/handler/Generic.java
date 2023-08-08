@@ -1,8 +1,8 @@
 package clone.twitter.exception.handler;
 
+import clone.twitter.model.exception.Error;
 import clone.twitter.util.exception.ExceptionUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,13 +13,13 @@ import static clone.twitter.constant.ExceptionConstants.GenericExceptionConstant
 import static clone.twitter.constant.ExceptionConstants.GenericExceptionConstants.UNKNOWN_ERROR_CODE;
 
 @ControllerAdvice
+@Slf4j
 public final class Generic extends ResponseEntityExceptionHandler {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Generic.class);
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleGenericException() {
+    public ResponseEntity<Error> handleGenericException() {
 
-        LOGGER.error(UNKNOWN_ERROR);
+        log.error(UNKNOWN_ERROR);
 
         return ExceptionUtil.responseErrorUtil(UNKNOWN_ERROR, UNKNOWN_ERROR_CODE, HttpStatus.INTERNAL_SERVER_ERROR);
     }

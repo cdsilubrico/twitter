@@ -1,56 +1,63 @@
 plugins {
-	id 'java'
-	id 'pmd'
-	id 'org.springframework.boot' version '2.5.7'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'java'
+    id 'org.springframework.boot' version '3.1.2'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'org.sonarqube' version '4.2.1.3168'
 }
 
 group = 'clone'
 version = projectVersion
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+
+springBoot {
+    mainClass = 'clone.twitter.TwitterApplication'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	//implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation group: 'org.apache.commons', name: 'commons-lang3', version: apacheCommonVersion
-	implementation group: 'org.apache.commons', name: 'commons-text', version: apacheCommonsTextVersion
-	implementation group: 'io.springfox', name: 'springfox-swagger2', version: swaggerVersion
-	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: swaggerVersion
-	implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
-	//implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonVersion
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    //implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: apacheCommonVersion
+    implementation group: 'org.apache.commons', name: 'commons-text', version: apacheCommonsTextVersion
+    //implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonVersion
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: openApiSwaggerVersion
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
 
-	testImplementation group: 'junit', name: 'junit', version: junitVersion
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: mockitoVersion
 
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'org.postgresql:postgresql'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
+    runtimeOnly 'org.postgresql:postgresql'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
 
-pmd {
-	toolVersion = "6.37.0"
-	ignoreFailures = true
-	ruleSetFiles = files("code_quality/pmd/pmd.xml")
-	consoleOutput = true
-	reportsDir = file("$project.buildDir/reports/pmd")
-	sourceSets = [sourceSets.main]
+sonar {
+    properties {
+        property("sonar.projectKey", "twitter-clone-service")
+        property("sonar.projectName", "twitter-clone-service")
+        property("sonar.host.url", "http://localhost:9000")
+        property("sonar.token", "sqp_501d4b4ab15bd21c61e49de32e43d4885d47630c")
+    }
 }
