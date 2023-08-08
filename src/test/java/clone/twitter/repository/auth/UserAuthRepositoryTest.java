@@ -47,4 +47,20 @@ class UserAuthRepositoryTest {
 
         verify(userAuthRepository, atLeastOnce()).findByHandle(anyString());
     }
+
+    @Test
+    void saveUserAUth() {
+        when(userAuthRepository.save(mockUserAuth)).thenReturn(mockUserAuth);
+
+        userAuthRepository.save(mockUserAuth);
+
+        verify(userAuthRepository, atLeastOnce()).save(mockUserAuth);
+    }
+
+    @Test
+    void deleteUserAuth() {
+        userAuthRepository.delete(mockUserAuth);
+
+        verify(userAuthRepository, atLeastOnce()).delete(mockUserAuth);
+    }
 }
