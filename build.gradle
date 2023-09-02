@@ -59,6 +59,6 @@ sonar {
         property("sonar.projectKey", "twitter-clone-service")
         property("sonar.projectName", "twitter-clone-service")
         property("sonar.host.url", "http://localhost:9000")
-        property("sonar.token", "sqp_501d4b4ab15bd21c61e49de32e43d4885d47630c")
+        property("sonar.token", "sqp_b1d135545f159f9da3ed5a6332422b3e58927ede")
     }
 }
