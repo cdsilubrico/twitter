@@ -53,12 +53,3 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
-
-sonar {
-    properties {
-        property("sonar.projectKey", "twitter-clone-service")
-        property("sonar.projectName", "twitter-clone-service")
-        property("sonar.host.url", "http://localhost:9000")
-        property("sonar.token", "sqp_b1d135545f159f9da3ed5a6332422b3e58927ede")
-    }
-}
