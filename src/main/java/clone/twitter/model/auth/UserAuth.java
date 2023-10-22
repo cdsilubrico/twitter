@@ -7,6 +7,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -17,17 +20,20 @@ import jakarta.persistence.*;
 public class UserAuth {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long accountId;
+    @Column(name = "user_id")
+    private Long userId;
     private String email;
     private String handle;
-    //    @Column(name = "hash", nullable = false)
-//    private String hash;
-//    @Column(name = "salt", nullable = false)
-//    private String salt;
     private String password;
+    private String token;
+    @Column(name = "date_created", updatable = false)
+    @CreationTimestamp
+    private LocalDateTime dateCreated;
+    @Column(name = "last_updated")
+    private LocalDateTime lastUpdated;
 
     public UserAuth(final UserAuthDTO userAuthDTO) {
-        this.accountId = getAccountId();
+        this.userId = getUserId();
         this.email = userAuthDTO.getEmail();
         this.handle = userAuthDTO.getHandle();
         this.password = userAuthDTO.getPassword();

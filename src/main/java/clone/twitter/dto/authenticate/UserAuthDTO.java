@@ -9,9 +9,11 @@ import lombok.ToString;
 
 import jakarta.validation.constraints.NotEmpty;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
-@ToString(exclude = {"password"})
+@ToString(exclude = {"password", "token"})
 @NoArgsConstructor
 public class UserAuthDTO {
     private Long accountId;
@@ -22,10 +24,15 @@ public class UserAuthDTO {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotEmpty(message = "Password field can't be empty.")
     private String password;
+    private String token;
+    private LocalDateTime dateCreated;
+    private LocalDateTime lastUpdated;
 
     public UserAuthDTO(final UserAuth userAuth) {
-        this.accountId = userAuth.getAccountId();
+        this.accountId = userAuth.getUserId();
         this.email = userAuth.getEmail();
         this.handle = userAuth.getHandle();
+        this.dateCreated = userAuth.getDateCreated();
+        this.lastUpdated = userAuth.getLastUpdated();
     }
 }

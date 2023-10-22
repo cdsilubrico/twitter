@@ -27,8 +27,8 @@ spring:
     active:
       on-profile: local
   datasource:
-    url: jdbc:postgresql://localhost:5432/practice_app_one
-    username: postgres
+    url: jdbc:postgresql://localhost:5432/twitter-clone
+    username: clowiesilubrico@gmail.com
     password: root
 
 #---
