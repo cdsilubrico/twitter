@@ -32,13 +32,13 @@ public class AuthController {
     }
 
     @GetMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserAuthDTO> getUserById(@PathVariable final Long id) {
+    public ResponseEntity<UserAuthDTO> getUserById(@PathVariable final Integer id) {
         return ResponseEntity.ok(authService.getById(id));
     }
 
     @DeleteMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteUser(@PathVariable final Long id) {
+    public void deleteUser(@PathVariable final Integer id) {
         authService.deleteUser(id);
     }
 

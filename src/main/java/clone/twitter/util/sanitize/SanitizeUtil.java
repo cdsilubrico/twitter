@@ -31,7 +31,7 @@ public class SanitizeUtil {
     public static UserAuthDTO sanitizeUserAuthDto(final UserAuthDTO userAuthDTO) {
         final UserAuthDTO sanitizedUserAuthDTO = new UserAuthDTO();
 
-        Optional<Long> idOpt = Optional.ofNullable(userAuthDTO.getAccountId());
+        Optional<Integer> idOpt = Optional.ofNullable(userAuthDTO.getAccountId());
         Optional<String> handleOpt = Optional.ofNullable(userAuthDTO.getHandle());
         Optional<String> emailOpt = Optional.ofNullable(userAuthDTO.getEmail());
         Optional<String> passwordOpt = Optional.ofNullable(userAuthDTO.getPassword());

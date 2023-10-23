@@ -23,7 +23,7 @@ class AuthServiceImplTest {
         mockUserAuthDTO = new UserAuthDTO();
         mockUserAuthDTO.setEmail("Email@gmail.com");
         mockUserAuthDTO.setHandle("@Email");
-        mockUserAuthDTO.setAccountId(100L);
+        mockUserAuthDTO.setAccountId(100);
         mockUserAuthDTO.setPassword("Password2");
     }
 
@@ -45,16 +45,16 @@ class AuthServiceImplTest {
 
     @Test
     void SuccessGetById() {
-        when(authService.getById(anyLong())).thenReturn(mockUserAuthDTO);
+        when(authService.getById(anyInt())).thenReturn(mockUserAuthDTO);
 
-        assertNotNull(authService.getById(anyLong()));
+        assertNotNull(authService.getById(anyInt()));
 
-        verify(authService, atLeastOnce()).getById(anyLong());
+        verify(authService, atLeastOnce()).getById(anyInt());
     }
 
     @Test
     void GivenThatUserAuthIdDoesNotExistThenThrowNoRecordException() {
-        when(authService.getById(anyLong())).thenThrow(NoRecordFound.class);
+        when(authService.getById(anyInt())).thenThrow(NoRecordFound.class);
 
         assertThrows(NoRecordFound.class, this::authServiceGetById);
     }
@@ -91,7 +91,7 @@ class AuthServiceImplTest {
 
     @Test
     void SuccessDeleteUser() {
-        final Long userId = 100L;
+        final Integer userId = 100;
 
         authService.deleteUser(userId);
 
@@ -100,15 +100,15 @@ class AuthServiceImplTest {
 
     @Test
     void GivenThatUserIdDoesNotExistWhenDeletingUserAuthThenThrowNoRecordFoundException() {
-        doNothing().when(authService).deleteUser(anyLong());
+        doNothing().when(authService).deleteUser(anyInt());
 
-        doThrow(NoRecordFound.class).when(authService).deleteUser(anyLong());
+        doThrow(NoRecordFound.class).when(authService).deleteUser(anyInt());
 
         assertThrows(NoRecordFound.class, this::authServiceDeleteById);
     }
 
     private void authServiceGetById() {
-        authService.getById(anyLong());
+        authService.getById(anyInt());
     }
 
     private void authServiceGetByEmailOrHandle() {
@@ -116,6 +116,6 @@ class AuthServiceImplTest {
     }
 
     private void authServiceDeleteById() {
-        authService.deleteUser(anyLong());
+        authService.deleteUser(anyInt());
     }
 }

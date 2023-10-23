@@ -21,7 +21,7 @@ public class UserAuth {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userId;
+    private Integer userId;
     private String email;
     private String handle;
     private String password;

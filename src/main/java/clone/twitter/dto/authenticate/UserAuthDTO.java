@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @ToString(exclude = {"password", "token"})
 @NoArgsConstructor
 public class UserAuthDTO {
-    private Long accountId;
+    private Integer accountId;
     @NotEmpty(message = "Email field can't be empty.")
     private String email;
     @NotEmpty(message = "Handle field can't be empty.")

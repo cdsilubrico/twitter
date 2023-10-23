@@ -39,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public UserAuthDTO getById(final Long userAuthId) {
+    public UserAuthDTO getById(final Integer userAuthId) {
 
         logInfoUtil(log, START_GET_BY_ID);
 
@@ -71,7 +71,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void deleteUser(final Long id) {
+    public void deleteUser(final Integer id) {
 
         logInfoUtil(log, START_DELETE_USER_AUTH_BY_ID);
 
