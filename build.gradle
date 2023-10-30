@@ -33,6 +33,7 @@ dependencies {
     //implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    //implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: apacheCommonVersion
     implementation group: 'org.apache.commons', name: 'commons-text', version: apacheCommonsTextVersion
     //implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonVersion
@@ -42,6 +43,7 @@ dependencies {
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
     testImplementation group: 'org.mockito', name: 'mockito-core', version: mockitoVersion
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
     runtimeOnly 'org.postgresql:postgresql'

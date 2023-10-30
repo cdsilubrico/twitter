@@ -4,7 +4,13 @@ import clone.twitter.dto.authenticate.UserAuthDTO;
 import clone.twitter.exception.specific.DuplicateEntry;
 import clone.twitter.exception.specific.NoRecordFound;
 import clone.twitter.model.auth.UserAuth;
+import clone.twitter.model.auth.password.Password;
+import clone.twitter.model.auth.password.secret.Hash;
+import clone.twitter.model.auth.password.secret.Salt;
 import clone.twitter.repository.auth.UserAuthRepository;
+import clone.twitter.repository.auth.UserHashRepository;
+import clone.twitter.repository.auth.UserSaltRepository;
+import clone.twitter.service.auth.password.PasswordService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +26,23 @@ import static clone.twitter.util.LoggerUtil.logInfoUtil;
 public class AuthServiceImpl implements AuthService {
 
     final UserAuthRepository userAuthRepository;
+    final UserSaltRepository userSaltRepository;
+    final UserHashRepository userHashRepository;
+    final PasswordService passwordService;
 
-    public AuthServiceImpl(final UserAuthRepository userAuthRepository) {
+    public AuthServiceImpl(
+            final UserAuthRepository userAuthRepository,
+            final UserSaltRepository userSaltRepository,
+            final UserHashRepository userHashRepository,
+            final PasswordService passwordService) {
         this.userAuthRepository = userAuthRepository;
+        this.userSaltRepository = userSaltRepository;
+        this.userHashRepository = userHashRepository;
+        this.passwordService = passwordService;
     }
 
     @Override
-    public UserAuthDTO signup(UserAuthDTO userAuthDTO) {
+    public UserAuthDTO signup(final UserAuthDTO userAuthDTO) {
 
         logInfoUtil(log, START_SIGN_UP);
 
@@ -35,7 +51,24 @@ public class AuthServiceImpl implements AuthService {
                     throw new DuplicateEntry(DUPLICATE_USERNAME_OR_EMAIL);
                 });
 
-        return new UserAuthDTO(userAuthRepository.save(new UserAuth(userAuthDTO)));
+        final Password passwordSecret = passwordService.encrypt(userAuthDTO.getPassword());
+
+        userAuthDTO.setPassword(passwordSecret.getEncryptedPassword());
+
+        UserAuth userAuth = userAuthRepository.save(new UserAuth(userAuthDTO));
+
+        Salt salt = new Salt();
+        salt.setUserId(userAuth);
+        salt.setSaltValue(passwordSecret.getSaltValue());
+
+        Hash hash = new Hash();
+        hash.setUserId(userAuth);
+        hash.setHashValue(passwordSecret.getHashValue());
+
+        userSaltRepository.save(salt);
+        userHashRepository.save(hash);
+
+        return new UserAuthDTO(userAuth);
     }
 
     @Override

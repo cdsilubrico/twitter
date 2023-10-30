@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface AuthService {
-    UserAuthDTO signup(final UserAuthDTO userAuthDTO);
+    UserAuthDTO signup(UserAuthDTO userAuthDTO);
 
     UserAuthDTO getById(Integer userAuthId);
 
