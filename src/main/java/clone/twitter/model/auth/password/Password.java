@@ -9,6 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Password {
     private String encryptedPassword;
-    private String saltValue;
-    private String hashValue;
+    private String salt;
+    private String hash;
 }

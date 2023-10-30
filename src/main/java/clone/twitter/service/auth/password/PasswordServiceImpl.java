@@ -28,7 +28,7 @@ public class PasswordServiceImpl implements PasswordService {
         final byte[] hashedBytes = hashPassword(passwordChars, saltBytes, passwordSecret);
 
         passwordSecret.setEncryptedPassword(toHex(hashedBytes));
-        passwordSecret.setSaltValue(toHex(saltBytes));
+        passwordSecret.setSalt(toHex(saltBytes));
 
         return passwordSecret;
     }
@@ -51,7 +51,7 @@ public class PasswordServiceImpl implements PasswordService {
 
             secretKey = secretKeyFactory.generateSecret(spec);
 
-            passwordSecret.setHashValue(toHex(Arrays.toString(secretKey.getEncoded()).getBytes()));
+            passwordSecret.setHash(toHex(Arrays.toString(secretKey.getEncoded()).getBytes()));
 
         } catch(Exception e) {
             log.error("An error occurred when hashing the password." + e.getMessage());

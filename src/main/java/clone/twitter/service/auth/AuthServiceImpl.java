@@ -57,16 +57,7 @@ public class AuthServiceImpl implements AuthService {
 
         UserAuth userAuth = userAuthRepository.save(new UserAuth(userAuthDTO));
 
-        Salt salt = new Salt();
-        salt.setUserId(userAuth);
-        salt.setSaltValue(passwordSecret.getSaltValue());
-
-        Hash hash = new Hash();
-        hash.setUserId(userAuth);
-        hash.setHashValue(passwordSecret.getHashValue());
-
-        userSaltRepository.save(salt);
-        userHashRepository.save(hash);
+        createPasswordSecret(passwordSecret.getSalt(), passwordSecret.getHash(), userAuth);
 
         return new UserAuthDTO(userAuth);
     }
@@ -132,5 +123,24 @@ public class AuthServiceImpl implements AuthService {
                 .map(UserAuthDTO::new)
                 .orElseThrow(() -> new NoRecordFound(NO_SUCH_RECORD_FOUND));
 
+    }
+
+    private void createPasswordSecret(final String saltValue, final String hashValue, final UserAuth userAuth) {
+        userSaltRepository.save(createSalt(saltValue, userAuth));
+        userHashRepository.save(createHash(hashValue, userAuth));
+    }
+
+    private Salt createSalt(final String saltValue, final UserAuth userAuth) {
+        Salt salt = new Salt();
+        salt.setUserId(userAuth);
+        salt.setSaltValue(saltValue);
+        return salt;
+    }
+
+    private Hash createHash(final String hashValue, final UserAuth userAuth) {
+        Hash hash = new Hash();
+        hash.setUserId(userAuth);
+        hash.setHashValue(hashValue);
+        return hash;
     }
 }
