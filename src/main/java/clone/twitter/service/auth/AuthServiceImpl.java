@@ -4,7 +4,7 @@ import clone.twitter.dto.authenticate.UserAuthDTO;
 import clone.twitter.exception.specific.DuplicateEntry;
 import clone.twitter.exception.specific.NoRecordFound;
 import clone.twitter.model.auth.UserAuth;
-import clone.twitter.model.auth.password.Password;
+import clone.twitter.dto.authenticate.PasswordDTO;
 import clone.twitter.model.auth.password.secret.Hash;
 import clone.twitter.model.auth.password.secret.Salt;
 import clone.twitter.repository.auth.UserAuthRepository;
@@ -51,13 +51,13 @@ public class AuthServiceImpl implements AuthService {
                     throw new DuplicateEntry(DUPLICATE_USERNAME_OR_EMAIL);
                 });
 
-        final Password passwordSecret = passwordService.encrypt(userAuthDTO.getPassword());
+        final PasswordDTO passwordDTOSecret = passwordService.encrypt(userAuthDTO.getPassword());
 
-        userAuthDTO.setPassword(passwordSecret.getEncryptedPassword());
+        userAuthDTO.setPassword(passwordDTOSecret.getEncryptedPassword());
 
         UserAuth userAuth = userAuthRepository.save(new UserAuth(userAuthDTO));
 
-        createPasswordSecret(passwordSecret.getSalt(), passwordSecret.getHash(), userAuth);
+        createPasswordSecret(passwordDTOSecret.getSalt(), passwordDTOSecret.getHash(), userAuth);
 
         return new UserAuthDTO(userAuth);
     }

@@ -1,7 +1,7 @@
 package clone.twitter.service.auth.password;
 
-import clone.twitter.model.auth.password.Password;
+import clone.twitter.dto.authenticate.PasswordDTO;
 
 public interface PasswordService {
-    Password encrypt(String password);
+    PasswordDTO encrypt(String password);
 }

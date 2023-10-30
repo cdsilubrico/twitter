@@ -1,6 +1,6 @@
 package clone.twitter.service.auth.password;
 
-import clone.twitter.model.auth.password.Password;
+import clone.twitter.dto.authenticate.PasswordDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -17,26 +17,26 @@ import java.util.Objects;
 public class PasswordServiceImpl implements PasswordService {
 
     @Override
-    public Password encrypt(final String password) {
-        final Password passwordSecret = new Password();
+    public PasswordDTO encrypt(final String password) {
+        final PasswordDTO passwordDTOSecret = new PasswordDTO();
 
         final String salt = Arrays.toString(generateSalt());
 
         final char[] passwordChars = password.toCharArray();
         final byte[] saltBytes = salt.getBytes();
 
-        final byte[] hashedBytes = hashPassword(passwordChars, saltBytes, passwordSecret);
+        final byte[] hashedBytes = hashPassword(passwordChars, saltBytes, passwordDTOSecret);
 
-        passwordSecret.setEncryptedPassword(toHex(hashedBytes));
-        passwordSecret.setSalt(toHex(saltBytes));
+        passwordDTOSecret.setEncryptedPassword(toHex(hashedBytes));
+        passwordDTOSecret.setSalt(toHex(saltBytes));
 
-        return passwordSecret;
+        return passwordDTOSecret;
     }
 
     private byte[] hashPassword(
             final char[] password,
             final byte[] salt,
-            final Password passwordSecret) {
+            final PasswordDTO passwordDTOSecret) {
 
         final int iterations = 10000; //hide
         final int keyLength = 512; //hide
@@ -51,7 +51,7 @@ public class PasswordServiceImpl implements PasswordService {
 
             secretKey = secretKeyFactory.generateSecret(spec);
 
-            passwordSecret.setHash(toHex(Arrays.toString(secretKey.getEncoded()).getBytes()));
+            passwordDTOSecret.setHash(toHex(Arrays.toString(secretKey.getEncoded()).getBytes()));
 
         } catch(Exception e) {
             log.error("An error occurred when hashing the password." + e.getMessage());

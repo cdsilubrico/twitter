@@ -1,4 +1,4 @@
-package clone.twitter.model.auth.password;
+package clone.twitter.dto.authenticate;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Password {
+public class PasswordDTO {
     private String encryptedPassword;
     private String salt;
     private String hash;
